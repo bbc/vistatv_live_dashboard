@@ -1,0 +1,9 @@
+{
+  "name": "vista_radio_stats",
+  "version": "0.0.0",
+  "dependencies": {
+    "d3": "~3.0.8",
+    "rickshaw": "~1.2.1",
+    "jquery": "~1.9"
+  }
+}

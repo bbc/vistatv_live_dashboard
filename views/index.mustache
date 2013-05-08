@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Live Dashboard</title>
+    <link href="css/main.css" rel="stylesheet">
+    <link href="components/rickshaw/rickshaw.min.css" rel="stylesheet">
+    <script>
+      var dashboardConfig = {
+        {{#dashboard_config}}
+          "logoTemplate" : "{{logo_template}}",
+          "logoMissing"  : "{{logo_missing}}",
+          "programmeUri": "{{programme_uri}}",
+          "programmePictureUri": "{{programme_picture_uri}}",
+          "initialServices": {{{initial_services}}}
+        {{/dashboard_config}}
+      };
+    </script>
+  </head>
+
+  <body data-faye-client-host="{{{faye_client_endpoint}}}">
+    <div id="bubble-chart"></div>
+    <div id="detail-table"></div>
+    <div id="stats-background"></div>
+
+    <div id="about-text" class="modal">
+      <div class="close-button" data-toggle="modal">
+        <img src="img/png/close.png" />
+      </div>
+      <h2>About this prototype</h2>
+      <p>This a prototype of a 'Live Dashboard' a BBC-facing dashboard of real-time IP radio activity.</p>
+      <p>It was originally created by Andrew Wood, Ant Onumonu, Chris Newell, Dan Nuttall and Libby Miller for <a href="http://www.bbc.co.uk/rd">R&amp;D</a> as part of the <a href="http://www.bbc.co.uk/rd/projects/vista-tv">ViSTA-TV project</a>.</p>
+      <p>This version was built by Chris Lowis, Chris Needham, Andrew Nicolaou, Dan Nuttall &amp;Thomas Parisot</p>
+      <p>More information is in this <a href="http://www.bbc.co.uk/blogs/researchanddevelopment/2013/01/visualising-near-real-time-ipl.shtml">blog post</a>.</p>
+      <p>This is an internal BBC demo from BBC R&amp;D Internet Research &amp; Future Services</a>. <a href="mailto:irfs@bbc.co.uk">Contact us</a> for more information.</p>
+    </div><!-- #about-text -->
+
+    <div id="services-list" class="modal">
+      <div class="close-button" data-toggle="modal" style="">
+        <img src="img/png/close.png">
+      </div>
+      <h2>Available services</h2>
+      <p class="hint">Select a service to show/hide it</p>
+      <ul></ul>
+    </div><!-- #services-lists -->
+
+    <div id="stats" class="modal">
+      <div id="stats-programme">
+        <div>
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" id="stats-show-image"/>
+        </div>
+        <div>
+          <div id="stats-show-time" class="date-range-value quiet-value"></div>
+          <h2 class="stats-show-title">
+            <a href="#" id="stats-show-title">No title</a>
+          </h2>
+        </div>
+        <div>
+          <img id="stats-figures-trend" src="img/png/green_dot_rollover.png" data-up="img/png/green_dot_rollover.png" data-down="img/png/red_dot_rollover.png">
+        </div>
+        <div id="stats-figures">
+          <span id="stats-viewing-figures" class="numeric-value loud-value"></span>
+          <span id="stats-viewing-change" class="numeric-value quiet-value"></span>
+        </div>
+        <div></div>
+      </div><!-- #stats_programme -->
+
+      <div id="stats-chart-container">
+        <div id="stats-peaks"></div>
+        <div id="stats-chart"></div>
+        <div id="stats-timeline"></div>
+        <div id="stats-y-axis"></div>
+      </div><!-- #stats_chart_container -->
+      <div id="legend"></div>
+      <div class="close-button" data-toggle="modal">
+        <img src="img/png/close.png"></img>
+      </div><!-- .close_button -->
+
+      <div id="flux-chart">
+        <div id="flux-track">
+          <div class="flux-title">Track List</div>
+          <div class="flux-track-group">&nbsp;&nbsp;No artist information</div>
+          <div class="flux-track-title">&nbsp;&nbsp;No track information</div>
+        </div><!-- #flux_track -->
+
+        <div id="flux-joining">
+          <div class="flux-title">Joining</div>
+          <ul class="flux-items"></ul>
+        </div><!-- #flux_joining -->
+
+        <div id="flux-leaving">
+          <div class="flux-title">Leaving</div>
+          <ul class="flux-items"></ul>
+        </div><!-- #flux_leaving -->
+
+        <div id="flux-social-activity">
+            <div class="flux-title">Social Activity</div>
+            <div class="social-image"><img src="img/png/twitter.png" width="30" height="30" /></div>
+            <div class="social-tweet-number"></div>
+            <div class="social-info"></div>
+        </div><!-- #flux_social_activity -->
+
+        <div id="flux-back-button">BACK</div>
+
+        <div id="flux-time" class="stats-x-axis-label"></div>
+      </div><!-- #flux_chart -->
+    </div><!-- #stats -->
+
+    <div id="header">
+    	<div class="container">
+    	  <h1 id="title" class="app-title">Live Dashboard</h1>
+        <div class="actions">
+          <a href="#about-text" id="about" class="button" data-toggle="modal">About</a>
+          <a href="#services-list" id="services" class="button" data-toggle="modal">Services</a>
+        </div>
+    	</div>
+    </div><!-- #header -->
+
+    <script src="/faye/client.js"></script>
+    <script src="components/jquery/jquery.min.js"></script>
+    <script src="components/d3/d3.min.js"></script>
+    <script src="components/rickshaw/rickshaw.min.js"></script>
+    <script src="js/barchart/Rickshaw.Graph.PeaksAnnotate.js"></script>
+
+    <script src="js/logo.js"></script>
+    <script src="js/service.js"></script>
+    <script src="js/service-list.js"></script>
+    <script src="js/service-list-view.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/stats-processor.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/barchart/barchart.js"></script>
+    <script src="js/bubble-chart.js"></script>
+    <script src="js/detail-table.js"></script>
+    <script src="js/modal/modal.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

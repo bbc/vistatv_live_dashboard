@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="utf-8">
+    <title>VistaTV Frontend Documentation</title>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/docs.css">
+    <style>
+      body > .navbar .brand {
+        float:left;
+        text-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px, rgba(255, 255, 255, 0.4) 0px 0px 30px;
+        color: white;
+        margin-left:0px;
+        font-weight:normal;
+      }
+      
+      .bs-docs-sidenav i{
+        width: 8px;
+        height: 8px;
+        padding: 0px;
+        margin: 0px;
+        display: inline-block;
+        margin-right:0.5em;
+      }
+      
+      code[class*="language-"],pre[class*="language-"]{color:black;text-shadow:0 1px white;font-family:Consolas,Monaco,'Andale Mono',monospace;direction:ltr;text-align:left;white-space:pre;word-spacing:normal;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*="language-"]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*="language-"],pre[class*="language-"]{background:#f5f2f0}:not(pre)>code[class*="language-"]{padding:.1em;border-radius:.3em}.token.comment,.token.prolog,.token.doctype,.token.cdata{color:slategray}.token.punctuation{color:#999}.namespace{opacity:.7}.token.property,.token.tag,.token.boolean,.token.number{color:#905}.token.selector,.token.attr-name,.token.string{color:#690}.token.operator,.token.entity,.token.url,.language-css .token.string,.style .token.string{color:#a67f59;background:hsla(0,0%,100%,.5)}.token.atrule,.token.attr-value,.token.keyword{color:#07a}.token.regex,.token.important{color:#e90}.token.important{font-weight:bold}.token.entity{cursor:help}
+      div.description {margin: 14px 0; padding-top: 14px; border-bottom:1px solid #eee; }
+      .tags {}
+      .ctx-type {
+        display:inline-block;
+        margin-right:0.5em;
+        //- float:right; margin-top:8px
+      }
+      
+      footer iframe{vertical-align:middle;}
+      
+    </style>
+  </head>
+  <body data-spy="scroll" data-target=".scrollspy">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container"><a class="brand">Doxx</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right sponsored"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <header id="overview" class="jumbotron subhead">
+      <div class="container">
+        <h1>VistaTV Frontend Documentation</h1>
+        <p class="lead"></p>
+      </div>
+    </header>
+    <div class="container">
+      <div class="row">
+        <div class="span3 bs-docs-sidebar">
+          <ul class="nav nav-list bs-docs-sidenav affix-top">
+            <li class=""><a href="../index.html">Main</a></li>
+            <li class=""><a href="../app.js.html">app.js</a></li>
+            <li class=""><a href="../bubble-chart.js.html">bubble-chart.js</a></li>
+            <li class=""><a href="../dashboard.js.html">dashboard.js</a></li>
+            <li class=""><a href="../detail-table.js.html">detail-table.js</a></li>
+            <li class=""><a href="../logo.js.html">logo.js</a></li>
+            <li class=""><a href="../service-list-view.js.html">service-list-view.js</a></li>
+            <li class=""><a href="../service-list.js.html">service-list.js</a></li>
+            <li class=""><a href="../service.js.html">service.js</a></li>
+            <li class=""><a href="../stats-processor.js.html">stats-processor.js</a></li>
+            <li class=""><a href="../stats.js.html">stats.js</a></li>
+            <li class="active"><a href="../barchart/barchart.js.html">barchart/barchart.js</a></li>
+            <li class=""><a href="../barchart/Rickshaw.Graph.PeaksAnnotate.js.html">barchart/Rickshaw.Graph.PeaksAnnotate.js</a></li>
+            <li class=""><a href="../modal/modal.js.html">modal/modal.js</a></li>
+          </ul>
+          <div class="scrollspy">
+            <ul class="nav nav-list bs-docs-sidenav affix-top">
+              <li><a href="#BarChart"><i class="alert alert-info"></i>BarChart</a>
+              </li>
+              <li><a href="#limit"><i class="alert alert-success"></i>limit</a>
+              </li>
+              <li><a href="#peaksInterval"><i class="alert alert-success"></i>peaksInterval</a>
+              </li>
+              <li><a href="#setup"><i class="alert alert-info"></i>setup</a>
+              </li>
+              <li><a href="#update"><i class="alert alert-info"></i>update</a>
+              </li>
+              <li><a href="#updateGraph"><i class="alert alert-info"></i>updateGraph</a>
+              </li>
+              <li><a href="#appendGraphData"><i class="alert alert-info"></i>appendGraphData</a>
+              </li>
+              <li><a href="#pruneChartSeries"><i class="alert alert-info"></i>pruneChartSeries</a>
+              </li>
+              <li><a href="#updateChartSeries"><i class="alert alert-info"></i>updateChartSeries</a>
+              </li>
+              <li><a href="#updateChartPeaksAnnotation"><i class="alert alert-info"></i>updateChartPeaksAnnotation</a>
+              </li>
+              <li><a href="#pruneChartAnnotations"><i class="alert alert-info"></i>pruneChartAnnotations</a>
+              </li>
+              <li><a href="#updateChartProgrammesAnnotation"><i class="alert alert-info"></i>updateChartProgrammesAnnotation</a>
+              </li>
+              <li><a href="#getShowTime"><i class="alert alert-info"></i>getShowTime</a>
+              </li>
+              <li><a href="#handlePeakEvent"><i class="alert alert-info"></i>handlePeakEvent</a>
+              </li>
+              <li><a href="#handlePeakChartClose"><i class="alert alert-info"></i>handlePeakChartClose</a>
+              </li>
+              <li><a href="#updateBuzz"><i class="alert alert-info"></i>updateBuzz</a>
+              </li>
+              <li><a href="#aggregateStatsData"><i class="alert alert-info"></i>aggregateStatsData</a>
+              </li>
+              <li><a href="#updateHeadline"><i class="alert alert-info"></i>updateHeadline</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="span9">
+          <section>
+            <h1></h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type"></div>
+            </p>
+          </section>
+          <div class="description"><p>globals $, d3, Rickshaw, jQuery, Stats</p> 
+            <pre><code class="language-javascript">var SetupOptions;</code></pre>
+          </div>
+          <section>
+            <h1></h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type"></div>
+            </p>
+          </section>
+          <div class="description"><p>Available options to setup a BarChart object.</p> 
+            <pre><code class="language-javascript">SetupOptions = {
+    mediums: []
+  };</code></pre>
+          </div>
+          <section id="BarChart">
+            <h1>BarChart</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>BarChart()</span>
+            </p>
+          </section>
+          <div class="description"><p>Service audience timeline constructor.</p>
+
+<p>By default it displays the latest 60 minutes of audience for a given service,<br />then updates every minutes or so (depending on the refresh interval of the Websocket broadcaster).</p> 
+            <pre><code class="language-javascript">function BarChart () {</code></pre>
+          </div>
+          <section id="limit">
+            <h1>limit</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>this.limit</span>
+            </p>
+          </section>
+          <div class="description"><p>Maximum amount of Stats data to display in the timeline at the same time.<br />This is used to preserve a timeline scale consistency.</p> 
+            <pre><code class="language-javascript">this.limit = 60;</code></pre>
+          </div>
+          <section id="peaksInterval">
+            <h1>peaksInterval</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-success radius ctx-type">property</div><span>this.peaksInterval</span>
+            </p>
+          </section>
+          <div class="description"><p>Represents the timescale aggregation for peaks display.<br />When clicking on a peak, it will display this amount of Stats objects aggregation.</p> 
+            <pre><code class="language-javascript">this.peaksInterval = 5;</code></pre>
+          </div>
+          <section id="setup">
+            <h1>setup</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>BarChart.prototype.setup()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>options</td>
+                <td>SetupOptions</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Initial Barchart setup.<br />It is performed once to save resources and fasten the time to display.</p> 
+            <pre><code class="language-javascript">BarChart.prototype.setup = function setup(options) {
+    var palette = new Rickshaw.Color.Palette({ scheme: 'spectrum2000' });
+
+    this._mediums = Array.isArray(options.mediums) ? options.mediums : SetupOptions.mediums;
+
+    this._chart = new Rickshaw.Graph({
+      element: document.getElementById('stats_chart'),
+      width: 980,
+      height: 300,
+      rendered: 'area',
+      stroke: true,
+      series: this._mediums.map(function (name) {
+        var color = d3.rgb(palette.color());
+
+        return {
+          &quot;name&quot;: Stats.humanize(name),
+          &quot;color&quot;: &quot;rgba(&quot; + color.r + &quot;, &quot; + color.g + &quot;, &quot; + color.b + &quot;, .35)&quot;,
+          &quot;stroke&quot;: &quot;rgba(0, 0, 0, .15)&quot;,
+          &quot;data&quot;: [
+            {x: 0, y: 0}
+          ]
+        };
+      })
+    });
+
+    // Axis
+    new Rickshaw.Graph.Axis.Time({
+      graph: this._chart,
+      timeUnit: (new Rickshaw.Fixtures.Time()).unit('15 minute')
+    });
+
+    new Rickshaw.Graph.Axis.Y({
+      element: document.getElementById('stats_y_axis'),
+      graph: this._chart,
+      orientation: 'left',
+      tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+    });
+
+    // Annotators
+    this._chart_peaks = new Rickshaw.Graph.PeaksAnnotate({
+      graph: this._chart,
+      element: document.getElementById('stats_peaks')
+    });
+
+    this._chart_annotator = new Rickshaw.Graph.Annotate({
+      graph: this._chart,
+      element: document.getElementById('stats_timeline')
+    });
+
+    // Interactive legends
+    var legend = new Rickshaw.Graph.Legend({
+      graph: this._chart,
+      element: document.getElementById('legend')
+    });
+
+    new Rickshaw.Graph.Behavior.Series.Highlight({
+      graph: this._chart,
+      legend: legend
+    });
+
+    this._setupEvents();
+  };</code></pre>
+          </div>
+          <section id="update">
+            <h1>update</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>BarChart.prototype.update()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>data</td>
+                <td>Stats,Array.&lt;Stats&gt;</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Updates the data used for visual processing.<br />It does not refresh the interface, though.</p> 
+            <pre><code class="language-javascript">BarChart.prototype.update = function update (data) {
+    if (data instanceof Stats){
+      this._data = [data];
+    }
+    else if (Array.isArray(data) &amp;&amp; data[0] instanceof Stats){
+      this._data = data;
+    }
+    else{
+      throw new TypeError(&quot;Expecting an array of Stats item to display.&quot;);
+    }
+
+    this._item = this._data[ this._data.length-1 ];
+  };</code></pre>
+          </div>
+          <section id="updateGraph">
+            <h1>updateGraph</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>BarChart.prototype.updateGraph()</span>
+            </p>
+          </section>
+          <div class="description"><p>Draw or redraw the timeline chart.<br />It will use data previously stored with the <code>update()</code> method.</p> 
+            <pre><code class="language-javascript">BarChart.prototype.updateGraph = function updateGraph(){
+    var self = this;
+
+    if (!self._item || !self._item.channel){
+      throw new Error('self.update() should have been run prior with a Stats object.');
+    }
+
+    this.updateHeadline(this._item);
+
+    this.pruneChartAnnotations();
+    this.pruneChartSeries();
+
+    this.updateChartSeries();
+    this.updateChartPeaksAnnotation({interval: this.peaksInterval * 60});
+    this.updateChartProgrammesAnnotation();
+
+    // Rickshaw graph now has enough informations to nicely present us a beautiful graph!
+    this._chart.render();
+  };</code></pre>
+          </div>
+          <section id="appendGraphData">
+            <h1>appendGraphData</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>BarChart.prototype.appendGraphData()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>service_data</td>
+                <td>Array.&lt;Stats&gt;</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Works like <code>update()</code>.<br />Instead of replacing the whole dataset, it appends them in the storage.<br />Data are sliced according to the <code>limit</code> property.</p>
+
+<p>This is the ideal method to call when subscribing to realtime updates.<br />Like <code>update()</code>, only the data are refreshed, not the UI.</p> 
+            <pre><code class="language-javascript">BarChart.prototype.appendGraphData = function appendGraphData(service_data){
+    if (Array.isArray(service_data) &amp;&amp; service_data[0] instanceof Stats){
+      this.update(this._data.concat(service_data).slice(-1 * this.limit));
+    }
+  };</code></pre>
+          </div>
+          <section id="pruneChartSeries">
+            <h1>pruneChartSeries</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>BarChart.prototype.pruneChartSeries()</span>
+            </p>
+          </section>
+          <div class="description"><p>Prunes the Graph series data</p> 
+            <pre><code class="language-javascript">BarChart.prototype.pruneChartSeries = function pruneChartSeries(){
+    this._chart.series.forEach(function(series){
+      series.data = [];
+    });
+  };</code></pre>
+          </div>
+          <section id="updateChartSeries">
+            <h1>updateChartSeries</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>BarChart.prototype.updateChartSeries()</span>
+            </p>
+          </section>
+          <div class="description"><p>Updates the Graph Series UI</p>
+
+<p>Uses the data previously stored with <code>update()</code>.</p> 
+            <pre><code class="language-javascript">BarChart.prototype.updateChartSeries = function updateChartSeries(){
+    var self = this;
+    var series_index = {};
+
+    // quickly stores the numeric index for each medium name
+    self._chart.series.forEach(function(series, index){
+      series_index[series.name] = index;
+    });
+
+    this._data.forEach(function(d){
+      d.datetime = Date.parse(d.timestamp);
+
+      // Stacking data series (mobile and desktop so far)
+      self.mediums.forEach(function(medium){
+        self._chart.series[ series_index[Stats.humanize(medium)] ].data.push({
+          x: d.datetime / 1000,
+          y: d.audience.platforms[medium]
+        });
+      });
+    });
+  };</code></pre>
+          </div>
+          <section id="updateChartPeaksAnnotation">
+            <h1>updateChartPeaksAnnotation</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>BarChart.prototype.updateChartPeaksAnnotation()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>options</td>
+                <td>interval:Number</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Updates the Graph Peaks annotations UI</p>
+
+<p>Uses the data previously stored with <code>update()</code>.</p> 
+            <pre><code class="language-javascript">BarChart.prototype.updateChartPeaksAnnotation = function updateChartPeaksAnnotation(options){
+    var self = this;
+    var latest_peak = 0;
+
+    options = options || {};
+    options.interval = options.interval || 5 * 60;    // 5 minutes by default
+
+    this._data.forEach(function(d){
+      var elected_medium, highest_value = 0;
+      var current_time = d.datetime / 1000;
+
+      // Skip if the interval is not respected
+      if (current_time - latest_peak &lt; options.interval){
+        return;
+      }
+
+      //determine which is the most important value
+      self.mediums.forEach(function(medium){
+        if (d[medium] &gt; highest_value){
+          elected_medium = medium;
+          highest_value = d[medium];
+        }
+      });
+
+      self._chart_peaks.add(current_time, d.audience.total, {
+        classes: [d.audience.change &lt; 0 ? 'negative' : 'positive']
+      });
+
+      latest_peak = current_time;
+    });
+  };</code></pre>
+          </div>
+          <section id="pruneChartAnnotations">
+            <h1>pruneChartAnnotations</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>BarChart.prototype.pruneChartAnnotations()</span>
+            </p>
+          </section>
+          <div class="description"><p>Clears existing annotations from a time series</p>
+
+<p>Concerns Timeline Chart</p> 
+            <pre><code class="language-javascript">BarChart.prototype.pruneChartAnnotations = function pruneChartAnnotations(){
+    [this._chart_annotator, this._chart_peaks].map(function(annotator){
+      annotator.data = {};
+
+      return annotator;
+    });
+
+    $('#stats_peaks .annotation, #stats_timeline .annotation, #stats_chart .annotation_line').remove();
+  };</code></pre>
+          </div>
+          <section id="updateChartProgrammesAnnotation">
+            <h1>updateChartProgrammesAnnotation</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>BarChart.prototype.updateChartProgrammesAnnotation()</span>
+            </p>
+          </section>
+          <div class="description"><p>Updates the Graph Programmes annotations UI</p>
+
+<p>Uses the data previously stored with <code>update()</code>.</p> 
+            <pre><code class="language-javascript">BarChart.prototype.updateChartProgrammesAnnotation = function updateChartProgrammesAnnotation(){
+    var self = this;
+    var programmes = {};
+
+    this._data.forEach(function(d){
+      var programme = d.getProgramme();
+
+      if (!programmes[ programme.id ]){
+        programmes[ programme.id ] = [
+          programme.datetime / 1000,
+          &quot;“&quot;+ programme.title +&quot;” programme starts.&quot;
+        ];
+      }
+    });
+
+    Object.keys(programmes).forEach(function(id){
+      self._chart_annotator.add.apply(self._chart_annotator, programmes[id]);
+    });
+  };</code></pre>
+          </div>
+          <section id="getShowTime">
+            <h1>getShowTime</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>getShowTime()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>date</td>
+                <td>string</td>
+                <td>A parseable `Date` text</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Formats properly a timestamp-ish for human reading purpose</p> 
+            <pre><code class="language-javascript">function getShowTime (date) {
+    var startDate = new Date(Date.parse(date));
+
+    var startDateHours = startDate.getHours();
+    var startDateMinutes = startDate.getMinutes();
+    var startMins = startDateMinutes &lt; 10 ? '0' + startDateMinutes.toString() : startDateMinutes;
+    return startDateHours + ':' + startMins;
+  }</code></pre>
+          </div>
+          <section id="handlePeakEvent">
+            <h1>handlePeakEvent</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>BarChart.prototype.handlePeakEvent()</span>
+            </p>
+          </section>
+          <div class="description"><p>Prepage to trigger an app-wide peakButton behavior</p> 
+            <pre><code class="language-javascript">BarChart.prototype.handlePeakEvent = function handlePeakEvent () {
+    var event = jQuery.Event(&quot;peakButtonClick&quot;);
+    var time = parseInt(event.target.getAttribute('data-time'), 10);
+    var index = 0;
+
+    this._data.some(function(d, i){
+      if (d.datetime / 1000 === time){
+        index = i;
+        return true;
+      }
+    });
+
+    var data = aggregateStatsData(this._data.slice(index, index + 5));
+
+    this.clearFluxData();
+    var html = &quot;&quot;;
+
+    data.tracks.forEach(function(track){
+      html = html + &quot;&lt;b&gt;&quot; + track.title + &quot;&lt;/b&gt; by &quot; + track.artist + &quot;&lt;br /&gt;&quot;;
+    });
+
+    $('#flux_track_group').html(html);
+    updateBuzz(data.social.twitter);
+
+    [{key: 'to', label: 'to', suffix: 'leaving'}, {key: 'from', label: 'from', suffix: 'joining'}].forEach(function(d){
+      var flux = data.flux[ d.key ];
+      var html = [];
+
+      Object.keys(flux).forEach(function(service_id){
+        html.push('&lt;li&gt;'+
+          '&lt;span class=&quot;value&quot;&gt;'+ Rickshaw.Fixtures.Number.formatKMBT(flux[service_id]) +'&lt;/span&gt; '+
+          d.label +
+          ' '+ Stats.humanize(service_id) +
+        '&lt;/li&gt;');
+      });
+
+      if (!html.length){
+        html.push('&lt;li&gt;No Data found&lt;/li&gt;');
+      }
+
+      $('#flux_'+d.suffix+'_items').html(html.join(''));
+    });
+
+    this.updateHeadline(data);
+    $(&quot;#flux_time&quot;).html(getShowTime(data.timestamp));
+
+    $(&quot;body&quot;).trigger(event);
+  };</code></pre>
+          </div>
+          <section id="handlePeakChartClose">
+            <h1>handlePeakChartClose</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>BarChart.prototype.handlePeakChartClose()</span>
+            </p>
+          </section>
+          <div class="description"><p>What to do when the peak data are displayed</p> 
+            <pre><code class="language-javascript">BarChart.prototype.handlePeakChartClose = function handlePeakChartClose () {
+    this.updateHeadline(this._item);
+
+    this.hideFluxChart();
+  };
+
+  BarChart.prototype.showFluxChart = function showFluxChart () {
+    $('#flux_chart').css('visibility', 'visible');
+  };
+
+  BarChart.prototype.hideFluxChart = function hideFluxChart () {
+    $('#flux_chart').css('visibility', 'hidden');
+  };
+
+  BarChart.prototype.clearFluxData = function clearFluxData () {
+    $('#flux_track_group').html('');
+    $('#flux_track_title').html('');
+    $('#flux_time').html('');
+  };</code></pre>
+          </div>
+          <section id="updateBuzz">
+            <h1>updateBuzz</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>updateBuzz()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>count</td>
+                <td>Number</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Display the social count</p> 
+            <pre><code class="language-javascript">function updateBuzz (count) {
+    $('#social_number').html('No Data Found');
+    $('#social_info').html('');
+
+    if (count) {
+      $('#social_number').html(count.toString());
+      $('#social_info').html(count === 1 ? 'tweet' : 'tweets');
+    }
+  }</code></pre>
+          </div>
+          <section id="aggregateStatsData">
+            <h1>aggregateStatsData</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">function</div><span>aggregateStatsData()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>data</td>
+                <td>Array.&lt;Stats&gt;</td>
+                <td>Series of Stats elements we want to compact in one Stats object</td>
+              </tr>
+              <tr>
+                <td>aggregate</td>
+                <td>Object=</td>
+                <td>Structure in which we aggregates the `data`</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Aggregates several results in one.</p>
+
+<p>The deep copy will perform on the base and structure of the first Stats item of the <code>data</code> argument if no<br /><code>aggregate</code> argument is provided.</p> 
+            <pre><code class="language-javascript">function aggregateStatsData(data, aggregate){
+    // first init? copy the structure of the object to aggregate
+    if(arguments.length === 1){
+      aggregate = data.shift();
+    }
+
+    data.forEach(function(item){
+      Object.keys(item).forEach(function(key){
+        var value = data[key];
+
+        if (Array.isArray(value)){
+          aggregate[key] = aggregate[key].concat(value);
+        }
+        else if (typeof value === 'number'){
+          aggregate[key] += value;
+        }
+        else if ($.isPlainObject(value)){
+          aggregate[key] = aggregateStatsData(value, aggregate[key]);
+        }
+      });
+    });
+
+    return aggregate;
+  }</code></pre>
+          </div>
+          <section id="updateHeadline">
+            <h1>updateHeadline</h1>
+            <h5 class="subheader"></h5>
+            <p>
+              <div class="label label-info radius ctx-type">method</div><span>BarChart.prototype.updateHeadline()</span>
+            </p>
+          </section>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width:20%">Option name</th>
+                <th style="width:20%">Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>item</td>
+                <td>Stats</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="description"><p>Updates the Modal's UI Header with programme informations.</p> 
+            <pre><code class="language-javascript">BarChart.prototype.updateHeadline = function updateHeadline(item) {
+    var programme = item.getProgramme();
+
+    if (programme.id) {
+      $(&quot;#stats_show_title&quot;)
+        .attr('href', &quot;http://bbc.co.uk/i/&quot; + programme.id)
+        .text(programme.title);
+
+      //@todo eventually provide a local HTTP uri to proxy that to whatever remote service available
+      //-&gt; /images/episode/:id
+      //$(&quot;#stats_show_image&quot;).attr('src', &quot;/images/episode/&quot; + programme.id);
+      $(&quot;#stats_show_image&quot;).attr('src', &quot;http://www.bbc.co.uk/iplayer/images/episode/&quot; + programme.id + &quot;_172_96.jpg&quot;);
+
+      $(&quot;#stats_show_time&quot;).text(getShowTime(programme.start) + &quot; - &quot; + getShowTime(programme.end));
+    }
+    else {
+      $(&quot;#stats_show_title, #flux_show_title, #stats_show_time, #stats_show_image&quot;).html('');
+    }
+
+    var $trend_icon = $(&quot;#stats_figures_trend&quot;);
+    $trend_icon.attr('src', $trend_icon.attr('data-'+(item.audience.change &gt; 0 ? 'up' : 'down')));
+    $(&quot;#stats_viewing_figures&quot;).text(item.audience.total);
+    $(&quot;#stats_viewing_change&quot;).text(item.getSignedAudienceChange());
+  };
+
+  window.BarChart = BarChart;
+
+}(window));</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p>Documentation generated with<a href="https://github.com/FGRibreau/doxx">Doxx</a>created by<a href="https://twitter.com/FGRibreau" data-show-count="false" class="twitter-follow-button">Francois-Guillaume Ribreau</a></p>
+        <p>Doxx is sponsored by<a href="http://bringr.net/?btt" title="Outil d'analyse des réseaux sociaux" class="bringr">Bringr</a>and<a href="https://redsmin.com/?btt" title="Full Redis GUI" class="redsmin">Redsmin</a></p>
+        <p>Theme borrowed from Twitter Bootstrap</p>
+      </div>
+    </footer>
+    <script src="http://platform.twitter.com/widgets.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="http://leaverou.github.com/prefixfree/prefixfree.js"></script>
+    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
+    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+    <script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-affix.js"></script>
+    <script>
+      /**
+       * Prism: Lightweight, robust, elegant syntax highlighting
+       * MIT license http://www.opensource.org/licenses/mit-license.php/
+       * @author Lea Verou http://lea.verou.me
+       */(function(){var e=/\blang(?:uage)?-(?!\*)(\w+)\b/i,t=self.Prism={util:{type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},clone:function(e){var n=t.util.type(e);switch(n){case"Object":var r={};for(var i in e)e.hasOwnProperty(i)&&(r[i]=t.util.clone(e[i]));return r;case"Array":return e.slice()}return e}},languages:{extend:function(e,n){var r=t.util.clone(t.languages[e]);for(var i in n)r[i]=n[i];return r},insertBefore:function(e,n,r,i){i=i||t.languages;var s=i[e],o={};for(var u in s)if(s.hasOwnProperty(u)){if(u==n)for(var a in r)r.hasOwnProperty(a)&&(o[a]=r[a]);o[u]=s[u]}return i[e]=o},DFS:function(e,n){for(var r in e){n.call(e,r,e[r]);t.util.type(e)==="Object"&&t.languages.DFS(e[r],n)}}},highlightAll:function(e,n){var r=document.querySelectorAll('code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code');for(var i=0,s;s=r[i++];)t.highlightElement(s,e===!0,n)},highlightElement:function(r,i,s){var o,u,a=r;while(a&&!e.test(a.className))a=a.parentNode;if(a){o=(a.className.match(e)||[,""])[1];u=t.languages[o]}if(!u)return;r.className=r.className.replace(e,"").replace(/\s+/g," ")+" language-"+o;a=r.parentNode;/pre/i.test(a.nodeName)&&(a.className=a.className.replace(e,"").replace(/\s+/g," ")+" language-"+o);var f=r.textContent;if(!f)return;f=f.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\u00a0/g," ");var l={element:r,language:o,grammar:u,code:f};t.hooks.run("before-highlight",l);if(i&&self.Worker){var c=new Worker(t.filename);c.onmessage=function(e){l.highlightedCode=n.stringify(JSON.parse(e.data));l.element.innerHTML=l.highlightedCode;s&&s.call(l.element);t.hooks.run("after-highlight",l)};c.postMessage(JSON.stringify({language:l.language,code:l.code}))}else{l.highlightedCode=t.highlight(l.code,l.grammar);l.element.innerHTML=l.highlightedCode;s&&s.call(r);t.hooks.run("after-highlight",l)}},highlight:function(e,r){return n.stringify(t.tokenize(e,r))},tokenize:function(e,n){var r=t.Token,i=[e],s=n.rest;if(s){for(var o in s)n[o]=s[o];delete n.rest}e:for(var o in n){if(!n.hasOwnProperty(o)||!n[o])continue;var u=n[o],a=u.inside,f=!!u.lookbehind||0;u=u.pattern||u;for(var l=0;l<i.length;l++){var c=i[l];if(i.length>e.length)break e;if(c instanceof r)continue;u.lastIndex=0;var h=u.exec(c);if(h){f&&(f=h[1].length);var p=h.index-1+f,h=h[0].slice(f),d=h.length,v=p+d,m=c.slice(0,p+1),g=c.slice(v+1),y=[l,1];m&&y.push(m);var b=new r(o,a?t.tokenize(h,a):h);y.push(b);g&&y.push(g);Array.prototype.splice.apply(i,y)}}}return i},hooks:{all:{},add:function(e,n){var r=t.hooks.all;r[e]=r[e]||[];r[e].push(n)},run:function(e,n){var r=t.hooks.all[e];if(!r||!r.length)return;for(var i=0,s;s=r[i++];)s(n)}}},n=t.Token=function(e,t){this.type=e;this.content=t};n.stringify=function(e){if(typeof e=="string")return e;if(Object.prototype.toString.call(e)=="[object Array]"){for(var r=0;r<e.length;r++)e[r]=n.stringify(e[r]);return e.join("")}var i={type:e.type,content:n.stringify(e.content),tag:"span",classes:["token",e.type],attributes:{}};i.type=="comment"&&(i.attributes.spellcheck="true");t.hooks.run("wrap",i);var s="";for(var o in i.attributes)s+=o+'="'+(i.attributes[o]||"")+'"';return"<"+i.tag+' class="'+i.classes.join(" ")+'" '+s+">"+i.content+"</"+i.tag+">"};if(!self.document){self.addEventListener("message",function(e){var n=JSON.parse(e.data),r=n.language,i=n.code;self.postMessage(JSON.stringify(t.tokenize(i,t.languages[r])));self.close()},!1);return}var r=document.getElementsByTagName("script");r=r[r.length-1];if(r){t.filename=r.src;document.addEventListener&&!r.hasAttribute("data-manual")&&document.addEventListener("DOMContentLoaded",t.highlightAll)}})();;
+      Prism.languages.markup={comment:/&lt;!--[\w\W]*?--(&gt;|&gt;)/g,prolog:/&lt;\?.+?\?&gt;/,doctype:/&lt;!DOCTYPE.+?&gt;/,cdata:/&lt;!\[CDATA\[[\w\W]+?]]&gt;/i,tag:{pattern:/&lt;\/?[\w:-]+\s*(?:\s+[\w:-]+(?:=(?:("|')(\\?[\w\W])*?\1|\w+))?\s*)*\/?&gt;/gi,inside:{tag:{pattern:/^&lt;\/?[\w:-]+/i,inside:{punctuation:/^&lt;\/?/,namespace:/^[\w-]+?:/}},"attr-value":{pattern:/=(?:('|")[\w\W]*?(\1)|[^\s>]+)/gi,inside:{punctuation:/=|&gt;|"/g}},punctuation:/\/?&gt;/g,"attr-name":{pattern:/[\w:-]+/g,inside:{namespace:/^[\w-]+?:/}}}},entity:/&amp;#?[\da-z]{1,8};/gi};Prism.hooks.add("wrap",function(e){e.type==="entity"&&(e.attributes.title=e.content.replace(/&amp;/,"&"))});;
+      Prism.languages.css={comment:/\/\*[\w\W]*?\*\//g,atrule:/@[\w-]+?(\s+[^;{]+)?(?=\s*{|\s*;)/gi,url:/url\((["']?).*?\1\)/gi,selector:/[^\{\}\s][^\{\}]*(?=\s*\{)/g,property:/(\b|\B)[a-z-]+(?=\s*:)/ig,string:/("|')(\\?.)*?\1/g,important:/\B!important\b/gi,ignore:/&(lt|gt|amp);/gi,punctuation:/[\{\};:]/g};Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{style:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/style(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)style[\w\W]*?(>|&gt;)|(&lt;|<)\/style(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.css}}});;
+      Prism.languages.clike={comment:{pattern:/(^|[^\\])(\/\*[\w\W]*?\*\/|\/\/.*?(\r?\n|$))/g,lookbehind:!0},string:/("|')(\\?.)*?\1/g,keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|catch|finally|null|break|continue)\b/g,"boolean":/\b(true|false)\b/g,number:/\b-?(0x)?\d*\.?[\da-f]+\b/g,operator:/[-+]{1,2}|!|=?&lt;|=?&gt;|={1,2}|(&amp;){1,2}|\|?\||\?|\*|\//g,ignore:/&(lt|gt|amp);/gi,punctuation:/[{}[\];(),.:]/g};;
+      Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(var|let|if|else|while|do|for|return|in|instanceof|function|new|with|typeof|try|catch|finally|null|break|continue)\b/g,number:/\b(-?(0x)?\d*\.?[\da-f]+|NaN|-?Infinity)\b/g});Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^/])\/(?!\/)(\[.+?]|\\.|[^/\r\n])+\/[gim]{0,3}(?=\s*($|[\r\n,.;})]))/g,lookbehind:!0}});Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)[\w\W]*?(&lt;|<)\/script(>|&gt;)/ig,inside:{tag:{pattern:/(&lt;|<)script[\w\W]*?(>|&gt;)|(&lt;|<)\/script(>|&gt;)/ig,inside:Prism.languages.markup.tag.inside},rest:Prism.languages.javascript}}});;
+      
+    </script>
+    <!-- App js-->
+    <script>
+      $(function(){
+        var $window = $(window);
+        $('.scrollspy .nav').affix({
+          offset: {
+            top: function () { return $window.width() <= 980 ? 480 : 400 }
+          , bottom: 50
+          }
+        });
+      })
+    </script>
+  </body>
+</html>

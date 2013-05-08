@@ -1,0 +1,67 @@
+/*
+ * Default Modal
+ */
+.modal{
+  background: #fff;
+  box-shadow: 0 0 5px rgba(255, 255, 255, .4);
+  left: 50%;
+  margin: 190px 0 0 -475px;
+  min-height: 250px;
+  position: absolute;
+  visibility: hidden;
+  width: 930px;
+  z-index: 200;
+
+  -webkit-transition: -webkit-transform .5s linear, visibility 1s linear;
+  -webkit-transform: translateY(-300%);
+  -moz-transition: -moz-transform .5s linear, visibility 1s linear;
+  -moz-transform: translateY(-300%);
+  -ms-transition: -ms-transform .5s linear, visibility 1s linear;
+  -ms-transform: translateY(-300%);
+  -o-transition: -o-transform .5s linear, visibility 1s linear;
+  -o-transform: translateY(-300%);
+  transition: transform .5s linear, visibility 1s linear;
+  transform: translateY(-300%);
+}
+.modal-visible{
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+  visibility: visible;
+}
+.modal-loading::after{
+  background: #fff;
+  color: #000;
+  content: "Loading…";
+  font-size: 10em;
+  height: 100%;
+  line-height: 3;
+  opacity: .7;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+#stats-background,
+.modal-background{
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  height: 100%;
+  top: 170px;
+  visibility: hidden;
+  width: 100%;
+  z-index: 2;
+
+  -webkit-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
+  -ms-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  transition: all 0.5s ease-out;
+}
+.in-modal #stats-background{
+  background-color: rgba(0, 0, 0, .7);
+  visibility: visible;
+}

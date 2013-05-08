@@ -1,0 +1,60 @@
+#bubble-chart {
+  position: absolute; 
+  top: 191px;
+  bottom: 0; 
+  width: 50%;
+  z-index: 1; 
+}
+
+#detail-table {
+  position: absolute;
+  top: 191px;
+  right: 0;
+  width: 50%;
+  z-index: 1;
+}
+
+/* About text modal */
+#about-text {
+  font-size: 20px;
+  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: #666666;
+  background: white;
+  padding: 20px 40px;
+}
+
+#about-text .close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 7;
+}
+
+#about-text h2 {
+  font-size: 24px;
+}
+
+/*
+ * Stats Modal
+ */
+#stats{
+  margin-left: -510px;
+  padding: 1.5em;
+  position: absolute;
+  width: 1020px;
+}
+
+#stats .close-button {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 7;
+}
+
+
+
+.container {
+  margin: 0 auto;
+  position: relative;
+  width: 950px;
+}

@@ -1,0 +1,45 @@
+/* Util */
+
+@-webkit-keyframes vertical-slide{
+  from{
+    margin-top: -20%;
+  }
+  to{
+    margin-top: 0;
+  }
+}
+@-moz-keyframes vertical-slide{
+  from{
+    margin-top: -20%;
+  }
+  to{
+    margin-top: 0;
+  }
+}
+@-ms-keyframes vertical-slide{
+  from{
+    margin-top: -20%;
+  }
+  to{
+    margin-top: 0;
+  }
+}
+@keyframes vertical-slide{
+  from{
+    margin-top: -20%;
+  }
+  to{
+    margin-top: 0;
+  }
+}
+
+@-webkit-keyframes fadein{
+  from{
+    visibility: hidden;
+    opacity: 0;
+  }
+  to{
+    visibility: visible;
+    opacity: 1;
+  }
+}

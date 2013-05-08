@@ -1,0 +1,25 @@
+stats_server:
+  host: "localhost"
+  port: 8081
+
+stats_http_server:
+  host: "localhost"
+  port: 8083
+
+dashboard:
+  logo_template: "/img/logos/{{format}}/{{service_id}}.{{format}}"
+  logo_missing: "/img/missing_logo.{{format}}"
+  programme_uri: "http://bbc.co.uk/i/{{id}}"
+  programme_picture_uri: "http://www.bbc.co.uk/iplayer/images/episode/{{id}}_172_96.jpg"
+  initial_services:
+    - bbc_one_london
+    - bbc_two_england
+    - bbc_three
+    - bbc_four
+    - bbc_parliament
+    - bbc_news24
+    - cbbc
+    - cbeebies
+
+faye_endpoint:
+  url: "http://localhost:5000/faye"

@@ -1,0 +1,182 @@
+/*
+ * Flux Chart
+ */
+#flux-chart{
+  background: #fff;
+  bottom: 0;
+  box-shadow: 0 0 30px rgba(0, 0, 50, .5);
+  height: 320px;
+  left: 0;
+  margin: 0;
+  position: absolute;
+  visibility: hidden;
+  width: 100%;
+}
+
+/* Flux panel */
+#flux-track {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 225px;
+  height: 250px;
+  background-color: #FFFFF9;
+  z-index: 15;
+}
+
+#flux-track .flux-title {
+  position: absolute; left: 27px; top: 20px; width: 170px; height: 30px;
+}
+
+#flux-track .flux-track-group {
+  position: absolute; left: 27px; top: 70px; width:175px; height:40px;
+}
+
+#flux-track .flux-track-title {
+  position: absolute; left: 27px; top: 120px; width:175px; height:50px;
+}
+
+#flux-joining .flux-title {
+  position: absolute; left: 27px; top: 20px; width: 206px; height: 50px;
+}
+
+#flux-leaving .flux-title {
+  position: absolute; left: 27px; top: 20px; width: 206px; height: 50px;
+}
+
+#flux-social-activity {
+  position: absolute; left: 745px; top: 0px; width: 225px; height: 250px; background-color: #f5ffff; z-index: 22;
+}
+
+#flux-social-activity .flux-title {
+  position: absolute; left: 27px; top: 20px; width: 206px; height: 50px;
+}
+
+#flux-social-activity .social-image {
+  position: absolute; left: 27px; top: 54px; width:30px; height:30px;
+}
+
+#flux-social-activity .social-tweet-number {
+  position: absolute; left: 58px; top: 60px; width: 206px; height: 50px;
+}
+
+#flux-social-activity .social-info {
+  position: absolute; left: 90px; top: 60px; width: 206px; height: 50px;
+}
+
+#flux-back-button {
+  position: absolute; left: 775px; top: 262px; z-index: 35; background-color: #808080; width: 89px; height: 29px;
+}
+
+#flux-time {
+  position: absolute; left: 60px; top: 269px; width: 100px; height: 30px;
+}
+
+.flux-title {
+  font-size:18px;
+  font-family:Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight:bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  line-height: 29px;
+  color:#333333;
+}
+
+.flux-track-label {
+  font-size:16px;
+  font-family:Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight:bold;
+  vertical-align: middle;
+  line-height: 30px;
+  color:#FFFFFF;
+}
+
+.flux-track-group {
+  font-size:14px;
+  font-family:Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight:normal;
+  /*vertical-align: left;*/
+  line-height: 20px;
+  color:#666666;
+}
+
+.flux-track-title {
+  font-size:14px;
+  font-family:Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight:normal;
+  /*vertical-align: left;*/
+  line-height: 30px;
+  color:#666666;
+}
+
+.social-info {
+  font-size:14px;
+  font-family:Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight:bold;
+  color:#333333;
+}
+
+.flux-items {
+  list-style: none;
+  margin: 60px 0 0 0;
+  padding: 0 15px 0 27px;
+}
+
+.flux-items .value {
+  display: inline-block;
+  font-weight:bold;
+  padding-right: .1em;
+  text-align: right;
+  width: 1.5em;
+}
+
+#flux-joining {
+  background-color: #F2FCF4;
+  height: 250px;
+  left: 225px;
+  position: absolute;
+  top: 0px;
+  width: 260px;
+  z-index: 18;
+}
+
+#flux-joining .value {
+  color: #10ba23;
+}
+
+#flux-leaving {
+  background-color: #fdf7f7;
+  height: 250px;
+  left: 485px;
+  position: absolute;
+  top: 0px;
+  width: 260px;
+  z-index: 18;
+}
+
+#flux-leaving .value {
+  color:#c84243;
+}
+
+.social-tweet-number {
+  font-size:14px;
+  font-family:Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight:bold;
+  color:#01adeb;
+}
+
+#flux-back-button {
+  font-size:18px;
+  font-weight:bold;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 29px;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+  color:#FFFFFF;
+}

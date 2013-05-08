@@ -1,0 +1,66 @@
+(function(window, $) {
+  "use strict";
+
+  /* globals jQuery */
+
+  /**
+   * Construct the rendering of services in the UI.
+   *
+   * @param {HTMLElement} el Parent element containing the view.
+   * @constructor
+   */
+  var ServiceListView = function ServiceListView(el){
+
+    /**
+     * Reference to the HTML element holding the view
+     * @type {jQuery|HTMLElement}
+     */
+    this.$el = $(el);
+
+    this.$el.on("click", 'input', this.handleClick.bind(this));
+  };
+
+  /**
+   * Render the list of Services into the UI so as people can choose what service to display.
+   *
+   * @api
+   * @param {Array.<Service>} services The services we want to render in the UI
+   */
+  ServiceListView.prototype.render = function render(services) {
+    var self = this;
+
+    self.$el.empty();
+    self.$el.append(function () {
+      return services.map(function (item) {
+        return '<li>' +
+          '<input id="' + item.id + '" type="checkbox" ' + (item.isSelected ? 'checked' : '') + ' value="' + item.id + '">' +
+          '<label for="' + item.id + '">' + item.displayName() + '</label>' +
+        '</li>';
+      });
+    });
+  };
+
+  /**
+   * Handle the click on a Service box and notifies the app to deal with that.
+   *
+   * @param {ClickEvent} evt
+   */
+  ServiceListView.prototype.handleClick = function handleClick(evt) {
+    var $input = $(evt.target);
+    var service = $input.val();
+    var isChecked = $input[0].checked;
+
+    evt = $.Event('serviceChanged', {
+      service: service,
+      isSelected: isChecked
+    });
+
+    $(this).trigger(evt);
+  };
+
+  /*
+   Exporting
+   */
+  window['ServiceListView'] = ServiceListView;
+
+}(window, jQuery));

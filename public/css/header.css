@@ -1,0 +1,54 @@
+/*
+ * Header
+ */
+#header{
+  border-bottom: 1px solid #ADADAD;
+  background: #fff;
+  position: absolute;
+  height: 170px;
+  vertical-align: middle;
+  width: 100%;
+
+  -webkit-animation: vertical-slide 1s ease 0s;
+  -moz-animation: vertical-slide 1s ease 0s;
+  -ms-animation: vertical-slide 1s ease 0s;
+  animation: vertical-slide 1s ease 0s;
+}
+
+#title,
+.actions {
+  line-height: 170px;
+}
+
+#title{
+  background: transparent url('../img/png/radio.png') no-repeat left center;
+  color: #474747;
+  display: inline-block;
+  margin: 0;
+  padding-left: 90px;
+  width: 75%;
+}
+
+.button{
+  background: #474747;
+  color: #fff;
+  padding: .3em 1em;
+  text-transform: uppercase;
+  z-index: 32;
+  cursor: pointer;
+}
+.button:link,
+.button:visited{
+  color: #fff;
+  text-decoration: none;
+}
+
+.button:hover{
+  background-color: #696969;
+}
+
+.actions {
+   position: absolute;
+   right: 0;
+   top: 0;
+}

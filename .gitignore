@@ -1,0 +1,10 @@
+database.db
+livestats
+config/*.pem
+config/config.yml
+.DS_Store
+node_modules
+.yardoc
+docs
+coverage
+public/img/logos

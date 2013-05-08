@@ -1,0 +1,118 @@
+/*
+ * "Barchart"
+ */
+#stats-chart-container{
+  margin: 1.5em 0 1.5em 40px;
+  position: relative;
+}
+
+#stats-show-image{
+  border: 3px solid #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 100, .5);
+  height: 96px;
+  width: 172px;
+}
+
+#stats-chart, #stats-timeline{
+  margin: 0 0 10px;
+}
+
+#stats .annotation{
+  cursor: pointer;
+}
+
+#stats-peaks{
+  height: 10px;
+}
+  #stats-peaks .annotation{
+    border: 1px solid rgba(0, 0, 0, .1);
+    margin-top: -3px;
+    height: 12px;
+    width: 12px;
+  }
+  #stats-peaks .annotation:after{
+    color: #fff;
+    content: "-";
+    display: block;
+    font-size: 10px;
+    line-height: 12px;  /* same as .annotation height */
+    text-align: center;
+    vertical-align: middle;
+    width: 12px;    /* same as .annotation width */
+  }
+  #stats-peaks .positive{
+    background-color: rgba(0, 255, 0, .55);
+    line-height: 11px;    /* better spacing with the triangle shape */
+  }
+  #stats-peaks .positive:after{
+    content: "\25B2";
+  }
+  #stats-peaks .negative{
+    background-color: rgba(255, 0, 0, .55);
+  }
+  #stats-peaks .negative:after{
+     content: "\25BC";
+   }
+
+  #stats-chart .annotation-line{
+    display: block;
+    border-left-color: rgba(0, 0, 0, .25);
+  }
+  #stats-chart .annotation-line.active{
+    border-left-color: rgba(0, 0, 0, .5);
+  }
+
+  #stats #legend{
+    background: #fff;
+    box-shadow: 0 0 3px #5d5c5c;
+    color: #5d5c5c;
+    position: absolute;
+    right: 5em;
+    top: 1.5em;
+  }
+
+
+#stats-y-axis{
+  left: -45px;
+  position: absolute;
+  bottom: -20px;  /* timeline height + graph botton margin */
+  width: 40px;
+}
+
+  /*
+   * Stats Header
+   */
+  #stats-programme{
+    color:#5d5c5c;
+    margin-bottom: 3em;
+    position: relative;
+  }
+    #stats-programme > div{
+      display: inline-block;
+      margin-right: 1em;
+      vertical-align: middle;
+    }
+    #stats-programme h2{
+      margin-top: .5em;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 400px;
+    }
+    #stats-programme #stats-show-time{
+      margin-top: -1.5em;
+    }
+
+    #stats-figures{
+      margin-left: -.5em;
+    }
+    #stats-figures span{
+      display: block;
+      text-align: center;
+    }
+    #stats-programme .loud-value{
+      font-size: 2em;
+    }
+    .quiet-value{
+      font-size: .8em;
+    }

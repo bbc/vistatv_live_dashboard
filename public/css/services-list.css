@@ -1,0 +1,75 @@
+/*
+  Services List
+*/
+
+#services-list {
+  padding: 16px;
+}
+
+#services-list .close-button {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 7;
+}
+
+#services-list h2,
+#services-list .hint {
+  display: inline-block;
+  line-height: 40px;
+}
+
+#services-list h2 {
+  margin: 0;
+}
+
+#services-list .hint {
+  color: #333;
+  font-weight: normal;
+}
+
+#services-list ul li {
+  display: inline-block;
+  width: 150px;
+
+  margin-right: 18px;
+}
+
+#services-list ul li input[type="checkbox"] {
+  display:none;
+}
+
+
+#services-list ul li input[type="checkbox"] + label {
+  display: inline-block;
+
+  width: inherit;
+  line-height: 20px;
+  height: 20px;
+
+  margin: 3px 4px;
+  padding: 4px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  cursor: pointer;
+
+  text-align: center;
+  color: #333;
+  border: 1px solid #B2B2B2;
+}
+
+#services-list ul li input[type="checkbox"]:checked + label {
+  border-color: #86BD86;
+  background-color: #C5F4C5;
+}
+
+#services-list ul li input[type="checkbox"] + label:hover {
+  background-color: #EEE;
+}
+
+#services-list ul li input[type="checkbox"]:checked + label:hover {
+  background-color: #A5E9A5;
+}
