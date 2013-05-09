@@ -31,6 +31,8 @@ If the logo can't be loaded, it will be replaced with the image located at the p
 
 The initial services to be displayed on the dashboard is determined by the `initial_services` config item. This should be a list of service ids.
 
+You should also set the `faye_endpoint` url to use the correct hostname and port of the live dashboard web server.
+
 ## Data sources and development
 
 This application subscribes to realtime data from a stats server over a TCP socket connection. It also uses HTTP to request historical data. The data formats are defined in API and Protocol documentation found in [doc/protocol.md](doc/protocol.md).
