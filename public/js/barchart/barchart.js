@@ -533,6 +533,17 @@
     $("#stats-viewing-change").text(item.getSignedAudienceChange());
   };
 
+  /**
+   * Return service id that bar chart is displaying data for
+   *
+   * @api
+   * @param {string} service id
+   */
+  BarChart.prototype.getCurrentServiceId = function getCurrentServiceId() {
+    var item = this._item || {};
+    return item.channel;
+  };
+
   window.BarChart = BarChart;
 
 }(window));

@@ -165,6 +165,15 @@
   };
 
   /**
+   * The latest update received for a particular service
+   *
+   * @returns {array.<Stats>} the latest Stats
+   */
+  StatsProcessor.prototype.lastUpdateReceivedForService = function (serviceId) {
+    return this.dataUpdatesReceived[serviceId];
+  };
+
+  /**
    * Parse an update response and returns an augmented object of Stats updates
    *
    * @param {Object} jsonData Each key contains an array of objects parseable with `Stats.parse`

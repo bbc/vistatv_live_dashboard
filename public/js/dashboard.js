@@ -179,7 +179,10 @@
     this.detailTable.update(latest);
 
     if (this.modalHandler.isVisible( $('#stats') )){
-      this.barChart.appendGraphData(this.statsProcessor.dataUpdatesReceived[ this.barChart.item.channel ]);
+      var serviceId  = this.barChart.getCurrentServiceId(),
+          lastUpdate = this.statsProcessor.lastUpdateReceivedForService(serviceId);
+
+      this.barChart.appendGraphData(lastUpdate);
       this.barChart.updateGraph();
     }
   };
