@@ -363,9 +363,9 @@
     this._data.forEach(function(d){
       var programme = d.getProgramme();
 
-      if (!programmes[ programme.id ]){
+      if (!programmes[ programme.id ] && programme.startDate){
         programmes[ programme.id ] = [
-          programme.datetime / 1000,
+          programme.startDate.valueOf() / 1000,
           "“"+ programme.title +"” programme starts."
         ];
       }

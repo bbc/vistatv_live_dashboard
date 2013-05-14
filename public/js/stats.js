@@ -103,6 +103,14 @@
   Stats.prototype.getProgramme = function getProgramme() {
     var now = new Date();
 
+    if (this.programme && this.programme.start) {
+      this.programme.startDate = new Date(this.programme.start);
+    }
+
+    if (this.programme && this.programme.end) {
+      this.programme.endDate = new Date(this.programme.end);
+    }
+
     return this.programme || {
       title: "No title available",
       id: "dummyid",
