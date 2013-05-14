@@ -152,6 +152,8 @@
 
     console.log('BubbleChart.update', data);
 
+    if (data.length == 0) { return; }
+
     var node = self.root.selectAll(".node")
                    .data(dataForLayout(self.bubble, data), idForDatum);
 
