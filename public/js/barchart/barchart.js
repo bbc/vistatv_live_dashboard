@@ -100,7 +100,7 @@
    * @param {SetupOptions} options
    */
   BarChart.prototype.setup = function setup(options) {
-    var palette = new Rickshaw.Color.Palette({ scheme: 'spectrum2000' });
+    var palette = new Rickshaw.Color.Palette({ scheme: d3.scale.category10().range() });
 
     this._options = options;
     this._mediums = Array.isArray(options.mediums) ? options.mediums : SetupOptions.mediums;
