@@ -90,6 +90,15 @@
      * @private
      */
     this._mediums = [];
+
+    /**
+     * URL of an image to be used when programme doesn't have one
+     * It is fetched from the DOM on `setup`.
+     *
+     * @type {<String>}
+     * @private
+     */
+    this._programmeImagePlaceholder = '';
   }
 
   /**
@@ -159,6 +168,9 @@
       graph: this._chart,
       legend: legend
     });
+
+    // Initial programme image placeholder
+    this._programmeImagePlaceholder = $('#stats-show-image').attr('src');
 
     this._setupEvents();
   };
@@ -524,7 +536,8 @@
       $("#stats-show-time").text(getShowTime(programme.start) + " - " + getShowTime(programme.end));
     }
     else {
-      $("#stats-show-title, #flux-show-title, #stats-show-time, #stats-show-image").html('');
+      $("#stats-show-title, #flux-show-title, #stats-show-time").html('');
+      $("#stats-show-image").attr('src', this._programmeImagePlaceholder);
     }
 
     var $trend_icon = $("#stats-figures-trend");
