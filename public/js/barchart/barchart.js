@@ -135,9 +135,17 @@
     });
 
     // Axis
+    var timeFixture = new Rickshaw.Fixtures.Time();
+    // Override the formatter to return time in browser timezone
+    // See: - https://github.com/shutterstock/rickshaw/issues/140
+    //      - https://github.com/shutterstock/rickshaw/blob/master/src/js/Rickshaw.Fixtures.Time.js#L67
+    timeFixture.formatTime = function(d) {
+      return d.toString().match(/(\d+:\d+):/)[1];
+    };
+
     new Rickshaw.Graph.Axis.Time({
       graph: this._chart,
-      timeUnit: (new Rickshaw.Fixtures.Time()).unit('15 minute')
+      timeUnit: timeFixture.unit('15 minute')
     });
 
     new Rickshaw.Graph.Axis.Y({
