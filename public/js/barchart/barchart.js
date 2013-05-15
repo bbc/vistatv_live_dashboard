@@ -118,7 +118,7 @@
       element: document.getElementById('stats-chart'),
       width: 980,
       height: 300,
-      rendered: 'area',
+      renderer: 'area',
       stroke: true,
       series: this._mediums.map(function (name) {
         var color = d3.rgb(palette.color());
@@ -289,8 +289,7 @@
 
     this._data.forEach(function(d){
       d.datetime = Date.parse(d.timestamp);
-
-      // Stacking data series (mobile and desktop so far)
+      // Stacking data series
       self._mediums.forEach(function(medium){
         self._chart.series[ series_index[Stats.humanize(medium)] ].data.push({
           x: d.datetime / 1000,
