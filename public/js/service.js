@@ -33,6 +33,37 @@
     return Stats.humanize(this.id).replace(/^BBC/, '');
   };
 
+  /**
+   * Select this service
+   *
+   * @api
+   */
+  Service.prototype.select = function() {
+    this.isSelected = true;
+    this.triggerStateChange();
+  };
+
+  /**
+   * Deselect this service
+   *
+   * @api
+   */
+  Service.prototype.deselect = function() {
+    this.isSelected = false;
+    this.triggerStateChange();
+  };
+
+  /**
+   * Trigger a state change
+   *
+   */
+  Service.prototype.triggerStateChange = function() {
+    var evt = $.Event('serviceStateChanged', {
+      service: this
+    });
+    $(this).trigger(evt);
+  };
+
   /*
    Exporting
    */

@@ -51,11 +51,30 @@
    * @param {Array.<Object>} data
    */
   ServiceList.prototype.dataReceived = function dataReceived(data){
-    var evt = $.Event('availableServices');
+    var self = this,
+        evt  = $.Event('availableServices');
     this.data = data.map(this.parseService);
     this.sort();
 
+    // Add event handlers for Service state changes
+    // Propagte as 'serviceStateChanged' event on this class
+    this.data.forEach(function (service) {
+      $(service).on('serviceStateChanged', function () { 
+        self.triggerStateChange(service); });
+    })
+
     // Notify the app layers we are ready to use the data (basically, the ServiceListView)
+    $(this).trigger(evt);
+  };
+
+  /**
+   * Trigger a state change
+   *
+   */
+  ServiceList.prototype.triggerStateChange = function(service) {
+    var evt = $.Event('serviceStateChanged', {
+      service: service
+    });
     $(this).trigger(evt);
   };
 

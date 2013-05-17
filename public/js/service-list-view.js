@@ -32,10 +32,12 @@
     self.$el.empty();
     self.$el.append(function () {
       return services.map(function (item) {
-        return '<li>' +
+        var $el = $('<li>' +
           '<input id="' + item.id + '" type="checkbox" ' + (item.isSelected ? 'checked' : '') + ' value="' + item.id + '">' +
           '<label for="' + item.id + '">' + item.displayName() + '</label>' +
-        '</li>';
+        '</li>');
+        $el.data('service', item);
+        return $el;
       });
     });
   };
@@ -47,11 +49,14 @@
    */
   ServiceListView.prototype.handleClick = function handleClick(evt) {
     var $input = $(evt.target);
-    var service = $input.val();
+    var serviceId = $input.val();
     var isChecked = $input[0].checked;
 
-    evt = $.Event('serviceChanged', {
-      service: service,
+    var service = $input.parent().data('service');
+    isChecked ? service.select() : service.deselect();
+
+    evt = $.Event('serviceStateChanged', {
+      service: serviceId,
       isSelected: isChecked
     });
 

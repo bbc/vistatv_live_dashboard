@@ -127,8 +127,8 @@
     // Connect the list with the view
     self.displayAvailableServices(self.serviceList, self.serviceListView, Dashboard.INITIAL_SERVICES_TO_DISPLAY);
 
-    $(self.serviceListView).on('serviceChanged', function (evt) {
-      self.updateServices(evt.service, evt.isSelected);
+    $(self.serviceList).on('serviceStateChanged', function (evt) {
+      self.updateServices(evt.service, evt.service.isSelected);
     });
   };
 
@@ -194,11 +194,11 @@
    * @param {string} service
    * @param {boolean} isSelected
    */
-  Dashboard.prototype.updateServices = function updateServices(service, isSelected) {
-    if (isSelected) {
-      this.statsProcessor.addService(service);
+  Dashboard.prototype.updateServices = function updateServices(service) {
+    if (service.isSelected) {
+      this.statsProcessor.addService(service.id);
     } else {
-      this.statsProcessor.removeService(service);
+      this.statsProcessor.removeService(service.id);
     }
   };
 
