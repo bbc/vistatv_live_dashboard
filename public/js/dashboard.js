@@ -80,8 +80,12 @@
     $body.on('radioItemClick', function (evt){ self.showDetailPanelForChannel(evt.item); });
     $body.on('peakButtonClick', function (evt) { self.showPeakData(evt); });
 
+    var initialServicesToDisplay = Dashboard.INITIAL_SERVICES_TO_DISPLAY;
+    
+    options.initialServicesToDisplay = initialServicesToDisplay;
+
+    this._initServices(initialServicesToDisplay);
     this._initStatsProcessor(options);
-    this._initServices();
   };
 
   Dashboard.INITIAL_SERVICES_TO_DISPLAY = dashboardConfig.initialServices || [];
@@ -96,7 +100,7 @@
     var self = this;
 
     self.statsProcessor = new StatsProcessor({
-      filterServices: Dashboard.INITIAL_SERVICES_TO_DISPLAY,
+      filterServices: options.initialServicesToDisplay,
       endpoint: options.stats_realtime_endpoint
     });
 
@@ -115,20 +119,22 @@
    *
    * @private
    */
-  Dashboard.prototype._initServices = function _initServices(){
+  Dashboard.prototype._initServices = function _initServices(initialServicesToDisplay){
     var self = this;
 
     // List of all available services
-    self.serviceList = new ServiceList();
+    self.serviceList = new ServiceList(initialServicesToDisplay);
 
     // View to allow user to select which services they want
     self.serviceListView = new ServiceListView('#services-list ul');
 
     // Connect the list with the view
-    self.displayAvailableServices(self.serviceList, self.serviceListView, Dashboard.INITIAL_SERVICES_TO_DISPLAY);
+    self.serviceList.services().then(function (services) {
+      self.serviceListView.render(services);
+    });
 
     $(self.serviceList).on('serviceStateChanged', function (evt) {
-      self.updateServices(evt.service, evt.service.isSelected);
+      self.updateService(evt.service, evt.service.isSelected);
     });
   };
 
@@ -141,30 +147,6 @@
   Dashboard.prototype.initWithData = function initWithData(latest) {
     this.bubbleChart = new BubbleChart(this.$bubbleChartEl, latest);
     this.detailTable = new DetailTable(this.$detailTableEl, latest);
-  };
-
-  /**
-   * Displays the available list of services to the user
-   *
-   * @param {ServiceList} serviceList
-   * @param {ServiceListView} serviceListView
-   * @param {array.<Service>} initialServiceList
-   */
-  Dashboard.prototype.displayAvailableServices = function displayAvailableServices(serviceList, serviceListView, initialServiceList) {
-    $(serviceList).on("availableServices", function (event) {
-      // jshint unused:vars
-      var services = serviceList.services();
-
-      // Update all Service object states to indicate whether
-      // they are currently active or not
-      var servicesWithSelectedFlag = services.map(function (service) {
-        var isSelected = initialServiceList.indexOf(service.id) > -1;
-        service.isSelected = isSelected;
-        return service;
-      });
-
-      serviceListView.render(servicesWithSelectedFlag);
-    });
   };
 
   /**
@@ -194,7 +176,7 @@
    * @param {string} service
    * @param {boolean} isSelected
    */
-  Dashboard.prototype.updateServices = function updateServices(service) {
+  Dashboard.prototype.updateService = function updateService(service) {
     if (service.isSelected) {
       this.statsProcessor.addService(service.id);
     } else {

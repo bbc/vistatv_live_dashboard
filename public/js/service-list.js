@@ -20,23 +20,16 @@
    *
    * @constructor
    */
-  var ServiceList = function ServiceList(){
+  var ServiceList = function ServiceList(selectedServiceIds){
     var self  = this;
+
+    self.selectedServiceIds = selectedServiceIds || [];
 
     /**
      * Holds the various services in memory for later use.
      * @type {Array.<Service>}
      */
     self.data = null;
-
-    // Initiate the service with remote data
-    $.get(self.url).then(function(data) {
-      if (data.error) {
-        errorHandler(data.error);
-      }
-
-      self.dataReceived(data);
-    }, errorHandler);
   };
 
   /**
@@ -50,10 +43,19 @@
    *
    * @param {Array.<Object>} data
    */
+  ServiceList.prototype.remoteServiceList = function remoteServiceList() {
+    return $.get(this.url);
+  };
+
+  /**
+   * Handle the data reception, and parse then store the results to drive the UI.
+   *
+   * @param {Array.<Object>} data
+   */
   ServiceList.prototype.dataReceived = function dataReceived(data){
     var self = this,
         evt  = $.Event('availableServices');
-    this.data = data.map(this.parseService);
+    this.data = data.map(this.parseService.bind(this));
     this.sort();
 
     // Add event handlers for Service state changes
@@ -61,7 +63,7 @@
     this.data.forEach(function (service) {
       $(service).on('serviceStateChanged', function () { 
         self.triggerStateChange(service); });
-    })
+    });
 
     // Notify the app layers we are ready to use the data (basically, the ServiceListView)
     $(this).trigger(evt);
@@ -85,7 +87,12 @@
    * @returns {Service}
    */
   ServiceList.prototype.parseService = function parseService(item) {
-    return new Service(item.id);
+    var service = new Service(item.id);
+    
+    var isSelected = this.selectedServiceIds.indexOf(service.id) > -1;
+    service.isSelected = isSelected;
+
+    return service;
   };
 
   /**
@@ -114,12 +121,49 @@
   };
 
   /**
-   * Returns the list of services.
+   * Returns a promise providing the list of services
    *
-   * @returns {Array.<Service>}
+   * @returns {Deferred.Promise}
    */
   ServiceList.prototype.services = function services() {
-    return this.data;
+    var self      = this,
+        deferred = $.Deferred();
+
+    self.remoteServiceList().then(
+      function(data) {
+        if (data.error) {
+          errorHandler(data.error);
+          deferred.reject(data.error);
+        }
+
+        self.dataReceived(data);
+        deferred.resolve(self.data);
+      }, 
+      errorHandler
+    );
+
+    return deferred.promise();
+  };
+
+  /**
+   * Returns a promise providing the list of services
+   *
+   * @returns {Deferred.Promise}
+   */
+  ServiceList.prototype.selectedServices = function selectedServices() {
+    var self      = this,
+        deferred = $.Deferred();
+
+    self.services().then(
+      function(services) {
+        deferred.resolve(services.filter(function (service) { return service.isSelected; }));
+      }, 
+      function(error) {
+        deferred.reject(error);
+      }
+    );
+
+    return deferred.promise();
   };
 
   /*
