@@ -136,10 +136,12 @@
     // Connect the list with the view
     self.serviceList.services().then(function (services) {
       self.serviceListView.render(services);
+      self.updateBookmark();
     });
 
     $(self.serviceList).on('serviceStateChanged', function (evt) {
       self.updateService(evt.service, evt.service.isSelected);
+      self.updateBookmark();
     });
   };
 
@@ -187,6 +189,19 @@
     } else {
       this.statsProcessor.removeService(service.id);
     }
+  };
+
+  /**
+   * Shorthand to alter the bookmark
+   *
+   * @api
+   */
+  Dashboard.prototype.updateBookmark = function updateBookmark() {
+    this.serviceList.selectedServices().then(function (services) {
+      var ids = services.map(function (s) { return s.id; }).join(','),
+          url = '?services=' + ids;
+      $('.bookmark').attr('href', url);
+    });
   };
 
   /**

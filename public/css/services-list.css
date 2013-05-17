@@ -73,3 +73,8 @@
 #services-list ul li input[type="checkbox"]:checked + label:hover {
   background-color: #A5E9A5;
 }
+
+p.bookmark {
+  font-size: 12px;
+  margin: -8px 0 0 0;
+}

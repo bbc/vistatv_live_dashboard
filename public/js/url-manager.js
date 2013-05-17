@@ -32,7 +32,7 @@
   };
 
   /**
-   * Are there items to be read
+   * Items in the query string
    *
    * @api
    * 
@@ -44,17 +44,6 @@
       items = matches[1].split(',');
     }
     return items;
-  };
-
-  /**
-   * Trigger a state change
-   *
-   */
-  UrlManager.prototype.triggerStateChange = function() {
-    var evt = $.Event('serviceStateChanged', {
-      service: this
-    });
-    $(this).trigger(evt);
   };
 
   /*

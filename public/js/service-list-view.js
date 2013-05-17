@@ -9,7 +9,7 @@
    * @param {HTMLElement} el Parent element containing the view.
    * @constructor
    */
-  var ServiceListView = function ServiceListView(el, model){
+  var ServiceListView = function ServiceListView(el){
 
     /**
      * Reference to the HTML element holding the view
