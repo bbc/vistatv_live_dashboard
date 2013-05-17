@@ -69,6 +69,12 @@
     self.serviceListView = null;
 
     /**
+     * Reference to the URL manager object
+     * @type {URLManager}
+     */
+    self.urlManager = null;
+
+    /**
      * Reference to the modal handler object
      * @type {ModalHandler}
      */
@@ -82,6 +88,7 @@
 
     var initialServicesToDisplay = Dashboard.INITIAL_SERVICES_TO_DISPLAY;
     
+    // If URL contains a service list then use that for initial services
     self.urlManager = new UrlManager({ key: 'services', delim: ',' });
     if (self.urlManager.hasItems()) {
       initialServicesToDisplay = self.urlManager.items();
@@ -123,6 +130,7 @@
    * It let the ability to the user to choose the displayed channels on both bubble and detail graph
    *
    * @private
+   * @param {Array.<string>} initialServicesToDisplay Service ids to be displayed 
    */
   Dashboard.prototype._initServices = function _initServices(initialServicesToDisplay){
     var self = this;
@@ -180,8 +188,7 @@
    * Shorthand to alter the displayed services on screen
    *
    * @api
-   * @param {string} service
-   * @param {boolean} isSelected
+   * @param {Service} service
    */
   Dashboard.prototype.updateService = function updateService(service) {
     if (service.isSelected) {
@@ -192,7 +199,7 @@
   };
 
   /**
-   * Shorthand to alter the bookmark
+   * Update bookmarkable link to the current services
    *
    * @api
    */

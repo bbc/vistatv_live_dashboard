@@ -35,6 +35,7 @@
 
   /**
    * Select this service
+   * Fires a 'serviceStateChanged' event
    *
    * @api
    */
@@ -45,6 +46,7 @@
 
   /**
    * Deselect this service
+   * Fires a 'serviceStateChanged' event
    *
    * @api
    */
@@ -54,8 +56,7 @@
   };
 
   /**
-   * Trigger a state change
-   *
+   * Trigger a state change event
    */
   Service.prototype.triggerStateChange = function() {
     var evt = $.Event('serviceStateChanged', {

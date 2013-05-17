@@ -39,9 +39,9 @@
   ServiceList.prototype.url = '/discovery.json';
 
   /**
-   * Handle the data reception, and parse then store the results to drive the UI.
+   * Fetch the available services list for a remote source.
    *
-   * @param {Array.<Object>} data
+   * @returns {Promise} A jQuery Deferred.Promise object
    */
   ServiceList.prototype.remoteServiceList = function remoteServiceList() {
     return $.get(this.url);
@@ -70,8 +70,10 @@
   };
 
   /**
-   * Trigger a state change
+   * Trigger a state change, firing the 'serviceStateChanged' event
+   * for the given Service
    *
+   * @param {Serivice} service
    */
   ServiceList.prototype.triggerStateChange = function(service) {
     var evt = $.Event('serviceStateChanged', {
@@ -121,7 +123,12 @@
   };
 
   /**
-   * Returns a promise providing the list of services
+   * Returns a jQuery Deferred.Promise object providing the list of services
+   * Use the `then` function with a callback to get the data e.g.
+   *     list.services()
+   *         .then(function (services) { 
+   *            console.log('Number of services: ' + services.length)
+   *         });
    *
    * @returns {Deferred.Promise}
    */
@@ -146,7 +153,7 @@
   };
 
   /**
-   * Returns a promise providing the list of services
+   * Returns a promise providing the list of selected services
    *
    * @returns {Deferred.Promise}
    */

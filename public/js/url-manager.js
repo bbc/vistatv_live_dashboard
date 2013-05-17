@@ -1,24 +1,31 @@
 (function(window, undefined) {
   "use strict";
 
-  /* globals Stats */
-
   /**
-   * Service constructor
+   * UrlManager constructor
    *
-   * @param {String} id
+   * @param {Object} opts
    * @constructor
    */
   var UrlManager = function UrlManager(opts) {
     var opts = opts || {};
     /**
-     * 
+     * The query string key to use
      * @type {String}
      */
     this.key = opts.key;
+
+    /**
+     * The delimeter to use within the query string list
+     * @type {String}
+     */    
     this.delim = opts.delim || ';';
 
-    this.matcher = new RegExp(this.key + '=(.[^&]*)');
+    /**
+     * @private
+     * @type {RegExp}
+     */ 
+    this._matcher = new RegExp(this.key + '=(.[^&]*)');
   };
 
   /**
@@ -35,12 +42,11 @@
    * Items in the query string
    *
    * @api
-   * 
    */
   UrlManager.prototype.items = function items() {
     var items = [];
-    if (this.matcher.test(window.location.search)) {
-      var matches = window.location.search.match(this.matcher);
+    if (this._matcher.test(window.location.search)) {
+      var matches = window.location.search.match(this._matcher);
       items = matches[1].split(',');
     }
     return items;
