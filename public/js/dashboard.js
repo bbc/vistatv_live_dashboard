@@ -82,6 +82,11 @@
 
     var initialServicesToDisplay = Dashboard.INITIAL_SERVICES_TO_DISPLAY;
     
+    self.urlManager = new UrlManager({ key: 'services', delim: ',' });
+    if (self.urlManager.hasItems()) {
+      initialServicesToDisplay = self.urlManager.items();
+    }
+
     options.initialServicesToDisplay = initialServicesToDisplay;
 
     this._initServices(initialServicesToDisplay);

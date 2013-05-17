@@ -9,7 +9,7 @@
    * @param {HTMLElement} el Parent element containing the view.
    * @constructor
    */
-  var ServiceListView = function ServiceListView(el){
+  var ServiceListView = function ServiceListView(el, model){
 
     /**
      * Reference to the HTML element holding the view
@@ -18,6 +18,20 @@
     this.$el = $(el);
 
     this.$el.on("click", 'input', this.handleClick.bind(this));
+  };
+
+  /**
+   * Update a single service item based on the model's state
+   *
+   * @api
+   * @param {Service} service The service to update
+   */
+  ServiceListView.prototype.updateService = function updateService(service) {
+    var $item = this.$el.find('#' + service.id);
+
+    if ($item.length > 0) {
+      $item.find('input')[0].checked = service.isSelected;
+    }
   };
 
   /**
