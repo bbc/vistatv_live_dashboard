@@ -104,7 +104,13 @@
 
     node.select(".title")
       .text(function (d) {
-        return d.getProgramme().title;
+        if(d.getProgramme().title){
+          return d.getProgramme().title;
+        }else{
+          console.log("d is ");
+          console.log(d);
+          return d.channel_name;
+        }
       });
 
     node.select(".change-arrow img")
