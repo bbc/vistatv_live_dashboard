@@ -66,7 +66,11 @@
    * @returns {string}
    */
   function stringForTooltip(d) {
-    return d.getProgramme().title + " " + d.audience.total + " (" + d.audience.change + (d.audience.change > 0 ? "⬆" : "⬇") + ")";
+    var title = d.getProgramme().title;
+    if(!title){
+      title = d.channel_name;
+    }
+    return title + " " + d.audience.total + " (" + d.audience.change + (d.audience.change > 0 ? "⬆" : "⬇") + ")";
   }
 
   /**
