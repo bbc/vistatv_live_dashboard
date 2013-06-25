@@ -107,8 +107,6 @@
         if(d.getProgramme().title){
           return d.getProgramme().title;
         }else{
-          console.log("d is ");
-          console.log(d);
           return d.channel_name;
         }
       });
