@@ -30,6 +30,7 @@
   -o-transform: translateY(0);
   transform: translateY(0);
   visibility: visible;
+  z-index: 1000;
 }
 .modal-loading::after{
   background: #fff;
