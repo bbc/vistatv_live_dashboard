@@ -67,6 +67,7 @@
 
 .detail-table .station img {
   height: 35px;
+  max-width:100px;
 }
 
 .detail-table .station{
