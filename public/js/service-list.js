@@ -56,7 +56,6 @@
     var self = this,
         evt  = $.Event('availableServices');
     this.data = data.map(this.parseService.bind(this));
-    this.sort();
 
     // Add event handlers for Service state changes
     // Propagte as 'serviceStateChanged' event on this class
