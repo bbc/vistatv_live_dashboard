@@ -543,13 +543,14 @@
     if (programme.id) {
       $("#stats-show-title")
         .attr('href', this._options.programme_uri.replace(/{{id}}/g, programme.id))
-        .text(programme.title);
+        .text(item.channel_name+": "+programme.title);
 
       $("#stats-show-image").attr('src', this._options.programme_picture_uri.replace(/{{id}}/g, programme.id));
       $("#stats-show-time").text(getShowTime(programme.start) + " - " + getShowTime(programme.end));
     }
     else {
-      $("#stats-show-title, #flux-show-title, #stats-show-time").html('');
+      $("#stats-show-title").html(item.channel_name);
+      $("#flux-show-title, #stats-show-time").html('');
       $("#stats-show-image").attr('src', this._programmeImagePlaceholder);
     }
 
