@@ -182,14 +182,21 @@
    * @private
    */
   function _humanize(service_id) {
-    return service_id
-      .replace(/_/g, ' ')
-      .replace(/(^| )\w/g, function (m) {
-        return m.toUpperCase();
-      })
-      .replace(/bbc/i, function (m) {
-        return m.toUpperCase();
-      });
+    var tmp_human_ids = {"journalism_uk_sport_stream_16":"Pyramid Stage","journalism_uk_sport_stream_17":"Other Stage","journalism_uk_sport_stream_18":"Park Stage","journalism_uk_sport_stream_19":"John Peel Stage","journalism_uk_sport_stream_20":"West Holts Stage","journalism_uk_sport_stream_21":"BBC Introducing Stage","journalism_uk_sport_stream_22":"Radio Visualisation","journalism_uk_sport_stream_4":"Red Button 1","journalism_uk_sport_stream_5":"Red Button 2","journalism_uk_sport_stream_6":"Red Button 3"};
+
+    var channel_name = tmp_human_ids[service_id];
+    if(channel_name){
+      return channel_name;
+    }else{
+      return service_id
+        .replace(/_/g, ' ')
+        .replace(/(^| )\w/g, function (m) {
+          return m.toUpperCase();
+        })
+        .replace(/bbc/i, function (m) {
+          return m.toUpperCase();
+        });
+    }
   }
 
   /**
@@ -203,7 +210,6 @@
     // Extending default values
     var stats = new Stats();
     _clone(json, stats);
-
     stats.channel = stationId;
     stats.channel_name = _humanize(stats.channel);
 
