@@ -538,14 +538,22 @@
    * @param {Stats} item
    */
   BarChart.prototype.updateHeadline = function updateHeadline(item) {
-    var programme = item.getProgramme();
+    var programme = item.getProgramme(),
+        programmeImageUrl;
 
     if (programme.id) {
+
       $("#stats-show-title")
         .attr('href', this._options.programme_uri.replace(/{{id}}/g, programme.id))
         .text(item.channel_name+": "+programme.title);
 
-      $("#stats-show-image").attr('src', this._options.programme_picture_uri.replace(/{{id}}/g, programme.id));
+      programmeImageUrl = this._options.programme_picture_uri.replace(/{{id}}/g, programme.id);
+
+      if (programme.image) {
+        programmeImageUrl = programme.image;
+      }
+
+      $("#stats-show-image").attr('src', programmeImageUrl);
       $("#stats-show-time").text(getShowTime(programme.start) + " - " + getShowTime(programme.end));
     }
     else {
