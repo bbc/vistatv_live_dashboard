@@ -105,7 +105,7 @@
     node.select(".title")
       .text(function (d) {
         if(d.getProgramme().title){
-          return d.getProgramme().title;
+          return d.channel_name+": "+d.getProgramme().title;
         }else{
           return d.channel_name;
         }
