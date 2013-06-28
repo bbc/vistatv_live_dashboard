@@ -182,7 +182,22 @@
    * @private
    */
   function _humanize(service_id) {
-    var tmp_human_ids = {"journalism_uk_sport_stream_16":"Pyramid Stage","journalism_uk_sport_stream_17":"Other Stage","journalism_uk_sport_stream_18":"Park Stage","journalism_uk_sport_stream_19":"John Peel Stage","journalism_uk_sport_stream_20":"West Holts Stage","journalism_uk_sport_stream_21":"BBC Introducing Stage","journalism_uk_sport_stream_22":"Radio Visualisation","journalism_uk_sport_stream_4":"Red Button 1","journalism_uk_sport_stream_5":"Red Button 2","journalism_uk_sport_stream_6":"Red Button 3"};
+
+    var tmp_human_ids = {"journalism_uk_sport_stream_16":"Pyramid Stage","journalism_uk_sport_stream_17":"Other Stage","journalism_uk_sport_stream_18":
+"Park Stage","journalism_uk_sport_stream_19":"John Peel Stage","journalism_uk_sport_stream_20":"West Holts Stage","journalism_uk_sport_stream_21":
+"BBC Introducing Stage","journalism_uk_sport_stream_22":"Radio Visualisation","journalism_uk_sport_stream_4":"Red Button 1","journalism_uk_sport_stream_5":
+"Red Button 2","journalism_uk_sport_stream_6":"Red Button 3",
+"p01b859c":"Pyramid Stage", "p01b85r5": "Pyramid Stage", "p01bktfs": "Pyramid Stage",
+"p01b85kl": "Other Stage", "p01bjqz2": "Other Stage", "p01bktzx": "Other Stage",
+"p01b85wv": "Park Stage","p01bjrd8": "Park Stage","p01bkwjg": "Park Stage",
+"p01b8rd6":"John Peel Stage", "p01bjr7q": "John Peel Stage", "p01bl1jk": "John Peel Stage",
+"p01b85nn":"West Holts Stage","p01bjr42": "West Holts Stage","p01bl23j": "West Holts Stage",
+"p01b8ct8":"BBC Introducing Stage","p01b8gq4": "BBC Introducing Stage", "p01bjrk5": "BBC Introducing Stage", "p01bl2m3": "BBC Introducing Stage",
+"p01b8g9j":"Radio Visualisation","p01bm2px":"Radio Visualisation","p01bjrnd":"Radio Visualisation",
+"p01b8gxq":"Red Button 1","p01b8dfm":"Red Button 1","p01b85ps":"Red Button 1",
+"p01bjrqh":"Red Button 2","p01bjrr7":"Red Button 2","p01bjrxk":"Red Button 2",
+"p01bl53w":"Red Button 3","p01bl562":"Red Button 3", "p01bl57x":"Red Button 3"
+};
 
     var channel_name = tmp_human_ids[service_id];
     if(channel_name){
