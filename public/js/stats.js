@@ -183,23 +183,6 @@
    */
   function _humanize(service_id) {
 
-    var tmp_human_ids = {
-"p01b859c":"Pyramid Stage", "p01b85r5": "Pyramid Stage", "p01bktfs": "Pyramid Stage",
-"p01b85kl": "Other Stage", "p01bjqz2": "Other Stage", "p01bktzx": "Other Stage",
-"p01b85wv": "Park Stage","p01bjrd8": "Park Stage","p01bkwjg": "Park Stage",
-"p01b8rd6":"John Peel Stage", "p01bjr7q": "John Peel Stage", "p01bl1jk": "John Peel Stage",
-"p01b85nn":"West Holts Stage","p01bjr42": "West Holts Stage","p01bl23j": "West Holts Stage",
-"p01b8ct8":"BBC Introducing Stage","p01b8gq4": "BBC Introducing Stage", "p01bjrk5": "BBC Introducing Stage", "p01bl2m3": "BBC Introducing Stage",
-"p01b8g9j":"Radio Visualisation","p01bm2px":"Radio Visualisation","p01bjrnd":"Radio Visualisation",
-"p01b8gxq":"Red Button 1","p01bjrqh":"Red Button 1","p01bl53w":"Red Button 1",
-"p01b8dfm":"Red Button 2","p01bjrr7":"Red Button 2","p01bjrxk":"Red Button 2",
-"p01b85ps":"Red Button 3","p01bl562":"Red Button 3", "p01bl57x":"Red Button 3"
-};
-
-    var channel_name = tmp_human_ids[service_id];
-    if(channel_name){
-      return channel_name;
-    }else{
       return service_id
         .replace(/_/g, ' ')
         .replace(/(^| )\w/g, function (m) {
@@ -208,7 +191,6 @@
         .replace(/bbc/i, function (m) {
           return m.toUpperCase();
         });
-    }
   }
 
   /**
