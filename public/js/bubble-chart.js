@@ -70,7 +70,8 @@
     if(!title){
       title = d.channel_name;
     }
-    return title + " " + d.audience.total + " (" + d.audience.change + (d.audience.change > 0 ? "⬆" : "⬇") + ")";
+//    return title + " " + d.audience.total + " (" + d.audience.change + (d.audience.change > 0 ? "⬆" : "⬇") + ")";
+    return title
   }
 
   /**

@@ -65,8 +65,8 @@
     headRow.append('div').text('Service').attr('class', 'th service');
     headRow.append('div').text('Title').attr('class', 'th');
     headRow.append('div').text('Audience').attr('class', 'th');
-    headRow.append('div').text('').attr('class', 'th');
-    headRow.append('div').text('Change').attr('class', 'th');
+    //headRow.append('div').text('').attr('class', 'th');
+    //headRow.append('div').text('Change').attr('class', 'th');
 
     self.root.append('div').attr("class", "tbody");
 
@@ -126,7 +126,8 @@
 
     node.select(".audience")
       .text(function (d) {
-        return d.audience.total;
+         return ""
+//        return d.audience.total;
       });
 
     node.sort(function (a, b) {
