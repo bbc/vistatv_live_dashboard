@@ -152,7 +152,8 @@
       element: document.getElementById('stats-y-axis'),
       graph: this._chart,
       orientation: 'left',
-      tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+      tickFormat: " "
+      //tickFormat: Rickshaw.Fixtures.Number.formatKMBT
     });
 
     // Show data point on hover
@@ -439,7 +440,7 @@
 
       Object.keys(flux).forEach(function(service_id){
         html.push('<li>'+
-          '<span class="value">'+ Rickshaw.Fixtures.Number.formatKMBT(flux[service_id]) +'</span> '+
+        //  '<span class="value">'+ Rickshaw.Fixtures.Number.formatKMBT(flux[service_id]) +'</span> '+
           d.label +
           ' '+ Stats.humanize(service_id) +
         '</li>');
@@ -564,8 +565,8 @@
 
     var $trend_icon = $("#stats-figures-trend");
     $trend_icon.attr('src', $trend_icon.attr('data-'+(item.audience.change > 0 ? 'up' : 'down')));
-    $("#stats-viewing-figures").text(item.audience.total);
-    $("#stats-viewing-change").text(item.getSignedAudienceChange());
+    //$("#stats-viewing-figures").text(item.audience.total);
+    //$("#stats-viewing-change").text(item.getSignedAudienceChange());
   };
 
   /**
