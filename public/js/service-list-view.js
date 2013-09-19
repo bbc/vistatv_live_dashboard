@@ -48,7 +48,7 @@
       return services.map(function (item) {
         var $el = $('<li>' +
           '<input id="' + item.id + '" type="checkbox" ' + (item.isSelected ? 'checked' : '') + ' value="' + item.id + '">' +
-          '<label for="' + item.id + '">' + item.displayName() + '</label>' +
+          '<label title="' + item.id + '" for="' + item.id + '">' + item.displayName() + '</label>' +
         '</li>');
         $el.data('service', item);
         return $el;
