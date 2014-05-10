@@ -86,6 +86,7 @@
     color:#5d5c5c;
     margin-bottom: 3em;
     position: relative;
+    padding-left:40px;
   }
     #stats-programme > div{
       display: inline-block;
