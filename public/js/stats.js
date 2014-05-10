@@ -101,6 +101,7 @@
    * @returns {Programme}
    */
   Stats.prototype.getProgramme = function getProgramme() {
+
     var now = new Date();
 
     if (this.programme && this.programme.start) {
@@ -119,6 +120,7 @@
       start: now.setMinutes(-60) && now.toISOString(),
       end: now.setMinutes(180) && now.toISOString()
     };
+
   };
 
   Stats.prototype.getTrack = function getTrack() {

@@ -73,12 +73,58 @@
     self.update(data);
   };
 
+
+  /**
+   * Helper to add programme data on demand
+   * This data used to come from statserver but this is more efficient
+   */
+
+  DetailTable.prototype.prog_info_helper = function prog_info_helper(channel, prog) {
+      var self = this;
+      var node = self.root;
+      var now = new Date();    
+      var time_now = now.toISOString();
+      var ch = channel.toLowerCase();
+
+      ch = ch.replace(/ /g,'_');
+      var url =  "http://dev.notu.be/2014/05/on_tv/?start_time="+time_now+"&service_key="+channel;
+
+      var jqxhr = $.getJSON( url, function() {
+         console.log( "success "+url );
+      })
+      .done(function( data) {
+        console.log("done");
+        if(data["response"]["docs"][0]){
+
+            var selector = "[data-service-id='"+ch+"'] div.title";
+            console.log(selector);
+            console.log(node.select(selector));
+            var title = data["response"]["docs"][0]["title"];
+            if(title && title!=""){
+              node.select(selector).html(channel +": "+title);
+            }
+            prog = {
+              pid: data["response"]["docs"][0]["pid"],
+              subtitle: data["response"]["docs"][0]["title"],
+              service_id: data["response"]["docs"][0]["service_key"],
+              start: data["response"]["docs"][0]["start_time"],
+              end: data["response"]["docs"][0]["end_time"],
+              image_url: data["response"]["docs"][0]["image_url"]
+            };
+
+        }
+
+      });
+  };  
+
+
   /**
    * Update the graph with new data
    *
    * @param {Array.<Stats>} data
    */
   DetailTable.prototype.update = function update(data) {
+
     var self = this;
 
     var node = self.root.select('div.tbody').selectAll("div.tr").data(data, idForDatum);
@@ -104,11 +150,8 @@
 
     node.select(".title")
       .text(function (d) {
-        if(d.getProgramme().title){
-          return d.channel_name+": "+d.getProgramme().title;
-        }else{
-          return d.channel_name;
-        }
+         self.prog_info_helper(d.channel_name, d.getProgramme())
+         return d.channel_name;
       });
 
     node.select(".change-arrow img")

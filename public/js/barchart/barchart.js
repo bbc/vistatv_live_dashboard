@@ -531,6 +531,38 @@
     return aggregate;
   }
 
+
+  /**
+   * Helper for getting the programme information from an online source directly
+   * This used to happen in the statserver but for various reasons this is more efficient
+   *
+   * @api
+   * @param {Stats} channel
+   */
+
+  BarChart.prototype.prog_info_helper = function prog_info_helper(channel){
+      var node = self.root;
+      var now = new Date();
+      var time_now = now.toISOString();
+
+      var url =  "http://dev.notu.be/2014/05/on_tv/?start_time="+time_now+"&service_key="+channel;
+      var jqxhr = $.getJSON( url, function() {
+         console.log( "success "+url );
+      })
+      .done(function( data) {
+        if(data["response"]["docs"][0] && data["response"]["docs"][0]["title"] && data["response"]["docs"][0]["title"]!=""){
+          $("#stats-show-title").html(channel+": "+data["response"]["docs"][0]["title"]);
+        }else{
+          $("#stats-show-title").html(channel);
+        }
+        if(data["response"]["docs"][0] && data["response"]["docs"][0]["image_url"] && data["response"]["docs"][0]["image_url"]!=""){
+          var programmeImageUrl = data["response"]["docs"][0]["image_url"];
+          $("#stats-show-image").attr('src', programmeImageUrl);
+        }
+      });
+  }
+
+
   /**
    * Updates the Modal's UI Header with programme informations.
    *
@@ -538,26 +570,18 @@
    * @param {Stats} item
    */
   BarChart.prototype.updateHeadline = function updateHeadline(item) {
+
     var programme = item.getProgramme(),
         programmeImageUrl;
+    var self = this;
+    self.prog_info_helper(item.channel_name);
+
 
     if (programme.id) {
-
       $("#stats-show-title")
-        .attr('href', this._options.programme_uri.replace(/{{id}}/g, programme.id))
-        .text(item.channel_name+": "+programme.title);
-
-      programmeImageUrl = this._options.programme_picture_uri.replace(/{{id}}/g, programme.id);
-
-      if (programme.image) {
-        programmeImageUrl = programme.image;
-      }
-
-      $("#stats-show-image").attr('src', programmeImageUrl);
       $("#stats-show-time").text(getShowTime(programme.start) + " - " + getShowTime(programme.end));
     }
     else {
-      $("#stats-show-title").html(item.channel_name);
       $("#flux-show-title, #stats-show-time").html('');
       $("#stats-show-image").attr('src', this._programmeImagePlaceholder);
     }
