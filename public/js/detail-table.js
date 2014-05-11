@@ -61,13 +61,6 @@
 
     self.root = d3.select(self.container).append("div").attr("class", "detail-table");
 
-    var headRow = self.root.append('div').attr('class', 'thead').append('div').attr('class', 'tr');
-    headRow.append('div').text('Service').attr('class', 'th service');
-    headRow.append('div').text('Title').attr('class', 'th');
-    headRow.append('div').text('Audience').attr('class', 'th');
-    headRow.append('div').text('').attr('class', 'th');
-    headRow.append('div').text('Change').attr('class', 'th');
-
     self.root.append('div').attr("class", "tbody");
 
     self.update(data);
