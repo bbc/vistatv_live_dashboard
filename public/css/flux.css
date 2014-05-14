@@ -5,7 +5,8 @@
   background: #fff;
   bottom: 0;
   box-shadow: 0 0 30px rgba(0, 0, 50, .5);
-  height: 320px;
+//  height: 320px;
+  height: 100%;
   left: 0;
   margin: 0;
   position: absolute;
@@ -22,6 +23,7 @@
   height: 250px;
   background-color: #FFFFF9;
   z-index: 15;
+  display: none; /* hide because never any data */
 }
 
 #flux-track .flux-title {
@@ -46,6 +48,7 @@
 
 #flux-social-activity {
   position: absolute; left: 745px; top: 0px; width: 225px; height: 250px; background-color: #f5ffff; z-index: 22;
+  display: none; /* hide because never any data */
 }
 
 #flux-social-activity .flux-title {
@@ -65,11 +68,14 @@
 }
 
 #flux-back-button {
-  position: absolute; left: 775px; top: 262px; z-index: 35; background-color: #808080; width: 89px; height: 29px;
+  position: absolute; left: 950px; top: 500px; z-index: 35; background-color: #808080; width: 89px; height: 29px;
 }
 
 #flux-time {
-  position: absolute; left: 60px; top: 269px; width: 100px; height: 30px;
+  position: absolute; left: 222px; top: 80px; width: 100px; height: 30px; 
+  font-size:18px;
+  font-family:Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight:bold;
 }
 
 .flux-title {
@@ -136,7 +142,7 @@
   height: 250px;
   left: 225px;
   position: absolute;
-  top: 0px;
+  top: 160px;
   width: 260px;
   z-index: 18;
 }
@@ -148,9 +154,9 @@
 #flux-leaving {
   background-color: #fdf7f7;
   height: 250px;
-  left: 485px;
+  left: 580px;
   position: absolute;
-  top: 0px;
+  top: 160px;
   width: 260px;
   z-index: 18;
 }

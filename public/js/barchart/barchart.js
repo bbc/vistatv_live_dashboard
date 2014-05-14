@@ -454,7 +454,7 @@
     });
 
     this.updateHeadline(data);
-    $("#flux-time").html(getShowTime(data.timestamp));
+    $("#flux-time").html("Time: "+getShowTime(data.timestamp));
 
     $("body").trigger(event);
   };
