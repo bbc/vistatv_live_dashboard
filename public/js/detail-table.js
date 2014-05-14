@@ -162,7 +162,8 @@
 
     node.select(".audience")
       .text(function (d) {
-        return d.audience.total;
+        return "";
+//        return d.audience.total;
       });
 
     node.sort(function (a, b) {
