@@ -105,11 +105,10 @@
     }
 
     #stats-figures{
-      display:none;
       margin-left: -.5em;
     }
     #stats-figures span{
-      display: none;
+      display: block;
       text-align: center;
     }
     #stats-programme .loud-value{

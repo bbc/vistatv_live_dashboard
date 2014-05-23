@@ -152,15 +152,14 @@
       element: document.getElementById('stats-y-axis'),
       graph: this._chart,
       orientation: 'left',
-      tickFormat: " "
-//      tickFormat: Rickshaw.Fixtures.Number.formatKMBT
+      tickFormat: Rickshaw.Fixtures.Number.formatKMBT
     });
 
     // Show data point on hover
-//    var hoverDetail = new Rickshaw.Graph.HoverDetail( {
-//      graph: this._chart,
-//      yFormatter: function(x) { return x; }
-//    });
+    var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+      graph: this._chart,
+      yFormatter: function(x) { return x; }
+    });
 
     // Annotators
     this._chart_peaks = new Rickshaw.Graph.PeaksAnnotate({
