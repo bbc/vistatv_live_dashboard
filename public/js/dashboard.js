@@ -117,12 +117,58 @@
     });
 
     self.statsProcessor.initialData().then(function () {
-      self.initWithData(self.statsProcessor.latest());
+      var latest = self.statsProcessor.latest();
+      var promises = latest.map(self._augmentStatsWithProgrammeData);
+      $.when.apply(null, promises)
+       .then(function () {
+          self.initWithData(latest);
+       });
     });
 
     $(self.statsProcessor).on("update", function () {
-      self.update(self.statsProcessor.latest());
+      var latest = self.statsProcessor.latest();
+      var promises = latest.map(self._augmentStatsWithProgrammeData);
+      $.when.apply(null, promises)
+       .then(function () {
+          self.update(latest);
+       });
     });
+  };
+
+  /**
+   * Augments a Stats with programme data from an external API
+   *
+   * @private
+   * @param {<Stats>} stats Stats object to be augmented
+   * @returns {<jQuery.Deferred>} 
+   */
+  Dashboard.prototype._augmentStatsWithProgrammeData = function _augmentStatsWithProgrammeData(stats){
+    var deferred = $.Deferred();
+    var self = this;
+    var now = new Date();    
+    var time_now = now.toISOString();
+    var channel = stats.channel_name;
+
+    var url =  "http://dev.notu.be/2014/05/on_tv/?start_time="+time_now+"&service_key="+channel;
+
+    var jqxhr =  $.getJSON(url)
+                  .done(function(data) {
+                    if(data["response"]["docs"][0]){
+                      var prog = {
+                        pid: data["response"]["docs"][0]["pid"],
+                        title: data["response"]["docs"][0]["title"],
+                        subtitle: data["response"]["docs"][0]["title"],
+                        service_id: data["response"]["docs"][0]["service_key"],
+                        start: data["response"]["docs"][0]["start_time"],
+                        end: data["response"]["docs"][0]["end_time"],
+                        image_url: data["response"]["docs"][0]["image_url"]
+                      };
+                      stats.programme = prog;
+                      deferred.resolve(stats);
+                    }
+                  });    
+
+    return deferred.promise();
   };
 
   /**
