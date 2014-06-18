@@ -88,7 +88,7 @@
    * @returns {Service}
    */
   ServiceList.prototype.parseService = function parseService(item) {
-    var service = new Service(item.id, item.title);
+    var service = new Service(item.id, item.title, item.logoId);
     
     var isSelected = this.selectedServiceIds.indexOf(service.id) > -1;
     service.isSelected = isSelected;

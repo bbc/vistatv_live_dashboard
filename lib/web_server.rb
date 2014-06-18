@@ -83,7 +83,8 @@ module LiveDashboard
         json.each do |item|
           id = item['id']
           if title_overrides.has_key?(id)
-            item['title'] = title_overrides[id]['title']
+            item['title']  = title_overrides[id]['title'] if title_overrides[id]['title']
+            item['logoId'] = title_overrides[id]['logoId'] if title_overrides[id]['logoId']
           end
         end
         json.to_json

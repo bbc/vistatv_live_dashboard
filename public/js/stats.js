@@ -131,6 +131,14 @@
     }
   };
 
+  Stats.prototype.getLogoId = function getLogoId() {
+    if (this.service && this.service.logoId) {
+      return this.service.logoId();
+    } else {
+      return this.channel;
+    }
+  };
+
   Stats.prototype.getTrack = function getTrack() {
     return _latest(this.tracks) || {
       title: "No track information available",
