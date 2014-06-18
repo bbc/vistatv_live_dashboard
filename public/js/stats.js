@@ -123,6 +123,10 @@
 
   };
 
+  Stats.prototype.getChannelName = function getChannelName() {
+    return this.channel_name;
+  };
+
   Stats.prototype.getTrack = function getTrack() {
     return _latest(this.tracks) || {
       title: "No track information available",

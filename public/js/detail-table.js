@@ -99,7 +99,7 @@
     node.select(".title")
       .text(function (d) {
          var programme = d.getProgramme();
-         return d.channel_name + (programme && programme.title ? ": " + programme.title : "");
+         return d.getChannelName() + (programme && programme.title ? ": " + programme.title : "");
       });
 
     node.select(".change-arrow img")

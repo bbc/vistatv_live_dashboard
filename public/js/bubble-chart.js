@@ -68,7 +68,7 @@
   function stringForTooltip(d) {
     var title = d.getProgramme().title;
     if(!title){
-      title = d.channel_name;
+      title = d.getChannelName();
     }
     return title + " " + d.audience.total + " (" + d.audience.change + (d.audience.change > 0 ? "⬆" : "⬇") + ")";
   }

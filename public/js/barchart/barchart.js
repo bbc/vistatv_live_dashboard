@@ -545,7 +545,7 @@
     if (programme.id) {
       $("#stats-show-title")
         .attr('href', this._options.programme_uri.replace(/{{id}}/g, programme.id))
-        .text(item.channel_name+": "+programme.title);
+        .text(item.getChannelName()+": "+programme.title);
  
       programmeImageUrl = this._options.programme_picture_uri.replace(/{{id}}/g, programme.id);
  

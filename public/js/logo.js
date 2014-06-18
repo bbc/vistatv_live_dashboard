@@ -55,7 +55,7 @@
    */
   Logo.prototype.stationNameEl = function () {
     var span = document.createElement('span');
-    span.textContent = this.item.channel_name;
+    span.textContent = this.item.getChannelName();
     return span;
   };
 
