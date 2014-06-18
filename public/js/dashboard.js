@@ -116,31 +116,72 @@
       endpoint: options.stats_realtime_endpoint
     });
 
-    self.statsProcessor.initialData().then(function () {
-      var latest = self.statsProcessor.latest();
-      var promises = latest.map(self._augmentStatsWithProgrammeData);
-      $.when.apply(null, promises)
-       .then(function () {
+    // Get the Stats objects for the view and augment 
+    // then with programme data from an external API
+    // This is asyncronous and when all the data has
+    // been augmented, run initWithData
+    self.statsProcessor
+        .initialData()
+        .then(function () {
+          return self._latestStatsObjectsWithProgrammeInfo();
+        })
+        .then(function (latest) {
           self.initWithData(latest);
-       });
-    });
+        });
 
     $(self.statsProcessor).on("update", function () {
-      var latest = self.statsProcessor.latest();
-      var promises = latest.map(self._augmentStatsWithProgrammeData);
-      $.when.apply(null, promises)
-       .then(function () {
-          self.update(latest);
-       });
+      self._latestStatsObjectsWithProgrammeInfo().
+          then(
+            function (latest) {
+              self.update(latest);
+            }
+          );
     });
   };
 
   /**
-   * Augments a Stats with programme data from an external API
+   * Fetches all the latest Stats objects and augments them
+   * with programme info. 
+   * 
+   * Returns a Promise that resolves with the array of 
+   * augmented latest Stats objects
+   *
+   * @private
+   */
+  Dashboard.prototype._latestStatsObjectsWithProgrammeInfo = function latestStatsObjectsWithProgrammeInfo() {
+    var self     = this,
+        deferred = $.Deferred(),
+        latest = self.statsProcessor.latest(),
+        promises;
+
+    // For each Stats object in the latest array,
+    // run the method that augments with remote programme data
+    promises = latest.map(self._augmentStatsWithProgrammeData);
+    
+    // When all the Stats objects in the `latest` 
+    // array augmented, we resolve the promise 
+    // and pass the latest array through
+    $.when.apply(null, promises)
+     .then(
+      function () {
+        deferred.resolve(latest);
+      });
+
+    // return the promise so the caller
+    // can listen using `then` for the
+    // stats objects to be augmented
+    return deferred.promise();
+  };
+
+  /**
+   * Augments a Stats with programme data from an external API.
+   * Note: The Stats object is modified directly so any references
+   *       to it will gain the programme data
    *
    * @private
    * @param {<Stats>} stats Stats object to be augmented
-   * @returns {<jQuery.Deferred>} 
+   * @returns {<jQuery.Deferred>} A promise that resolves when the
+                                  Stat object has been augmented.
    */
   Dashboard.prototype._augmentStatsWithProgrammeData = function _augmentStatsWithProgrammeData(stats){
     var deferred = $.Deferred();
