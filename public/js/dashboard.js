@@ -155,13 +155,13 @@
                   .done(function(data) {
                     if(data["response"]["docs"][0]){
                       var prog = {
-                        pid: data["response"]["docs"][0]["pid"],
+                        id: data["response"]["docs"][0]["pid"],
                         title: data["response"]["docs"][0]["title"],
                         subtitle: data["response"]["docs"][0]["title"],
                         service_id: data["response"]["docs"][0]["service_key"],
                         start: data["response"]["docs"][0]["start_time"],
                         end: data["response"]["docs"][0]["end_time"],
-                        image_url: data["response"]["docs"][0]["image_url"]
+                        image: data["response"]["docs"][0]["image_url"]
                       };
                       stats.programme = prog;
                       deferred.resolve(stats);
@@ -283,6 +283,12 @@
 
     this.statsProcessor.historicalByService(item.channel).then(function(response){
       var service_data = self.statsProcessor.parseUpdates(response.stations)[ item.channel ];
+      
+      // Swap the last data item form the server with
+      // that one passed in as it will have programme
+      // data
+      service_data[service_data.length - 1] = item;
+
       self.barChart.update(service_data);
       self.barChart.updateGraph();
 
