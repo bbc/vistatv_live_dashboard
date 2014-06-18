@@ -116,12 +116,15 @@
       endpoint: options.stats_realtime_endpoint
     });
 
-    self.statsProcessor.initialData().then(function () {
-      self.initWithData(self.statsProcessor.latest());
-    });
+    self.statsProcessor
+        .initialData()
+        .then(self.statsProcessor.latest())
+        .then(function (latestData) {
+          self.initWithData(latestData);
+        });
 
-    $(self.statsProcessor).on("update", function () {
-      self.update(self.statsProcessor.latest());
+    $(self.statsProcessor).on("update", function (evt, data) {
+      self.update(data);
     });
   };
 

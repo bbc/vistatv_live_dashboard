@@ -122,12 +122,17 @@
    * @param {Object=} data
    */
   StatsProcessor.prototype.update = function (data) {
+    var self = this;
+
     if (data) {
       console.log('StatsProcessor.update() has new data', data);
       this.processUpdatesByService(data.stations);
     }
 
-    $(this).trigger("update", this.latest());
+    this.latest()
+        .then(function (data) {
+          $(self).trigger("update", [ data ]);
+        })
   };
 
   /**
@@ -138,6 +143,7 @@
    */
   StatsProcessor.prototype.latest = function () {
     var latest = [],
+        deferred = $.Deferred(),
         dataForService,
         dataTotal,
         latestItem;
@@ -152,7 +158,9 @@
       }
     }
 
-    return latest;
+    deferred.resolve(latest);
+
+    return deferred.promise();
   };
 
   /**
