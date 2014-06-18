@@ -96,8 +96,11 @@
 
     options.initialServicesToDisplay = initialServicesToDisplay;
 
-    this._initServices(initialServicesToDisplay);
-    this._initStatsProcessor(options);
+    self._initServices(initialServicesToDisplay)
+        .then(function () {
+          self._initStatsProcessor(options);
+        });
+    
   };
 
   Dashboard.INITIAL_SERVICES_TO_DISPLAY = dashboardConfig.initialServices || [];
@@ -220,7 +223,8 @@
    * @param {Array.<string>} initialServicesToDisplay Service ids to be displayed 
    */
   Dashboard.prototype._initServices = function _initServices(initialServicesToDisplay){
-    var self = this;
+    var self = this,
+        deferred = $.Deferred();
 
     // List of all available services
     self.serviceList = new ServiceList(initialServicesToDisplay);
@@ -229,15 +233,27 @@
     self.serviceListView = new ServiceListView('#services-list ul');
 
     // Connect the list with the view
-    self.serviceList.services().then(function (services) {
-      self.serviceListView.render(services);
-      self.updateBookmark();
-    });
+    self.serviceList
+        .services()
+        .then(function (services) {
+          self.serviceListView.render(services);
+          self.updateBookmark();
+
+          // Link to the Stats class so that Stats objects 
+          // can be linked to their parent services
+          Stats.serviceList = self.serviceList;
+
+          // All done, notify anything waiting for 
+          // our promise to resolve
+          deferred.resolve();
+        });
 
     $(self.serviceList).on('serviceStateChanged', function (evt) {
       self.updateService(evt.service, evt.service.isSelected);
       self.updateBookmark();
     });
+
+    return deferred.promise();
   };
 
   /**

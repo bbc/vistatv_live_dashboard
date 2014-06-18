@@ -9,12 +9,18 @@
    * @param {String} id
    * @constructor
    */
-  var Service = function Service(id) {
+  var Service = function Service(id, title) {
     /**
      * Channel service identifier
      * @type {String}
      */
     this.id = id;
+
+    /**
+     * Human name for service
+     * @type {String}
+     */
+    this.title = title;
 
     /**
      * If the channel is selected, it will be displayed in the UI (charts etc.)
@@ -30,7 +36,11 @@
    * @returns {String}
    */
   Service.prototype.displayName = function() {
-    return Stats.humanize(this.id).replace(/^BBC/, '');
+    if (this.title) {
+      return this.title;
+    } else {
+      return Stats.humanize(this.id);
+    }
   };
 
   /**

@@ -88,7 +88,7 @@
    * @returns {Service}
    */
   ServiceList.prototype.parseService = function parseService(item) {
-    var service = new Service(item.id);
+    var service = new Service(item.id, item.title);
     
     var isSelected = this.selectedServiceIds.indexOf(service.id) > -1;
     service.isSelected = isSelected;
@@ -170,6 +170,25 @@
     );
 
     return deferred.promise();
+  };
+
+  /**
+   * Returns a promise providing a particular service instance
+   * identified by it's id
+   *
+   *  
+   * @returns {Deferred.Promise}
+   */
+  ServiceList.prototype.findByIdSync = function findById(id) {
+    var found = this.data.filter(function (service) {
+      return service.id === id;
+    });
+
+    if (found.length > 0) {
+      return found[0];
+    } else {
+      return null;
+    }
   };
 
   /*

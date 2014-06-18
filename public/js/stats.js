@@ -124,7 +124,11 @@
   };
 
   Stats.prototype.getChannelName = function getChannelName() {
-    return this.channel_name;
+    if (this.service && this.service.displayName) {
+      return this.service.displayName();
+    } else {
+      return this.channel_name;
+    }
   };
 
   Stats.prototype.getTrack = function getTrack() {
@@ -208,10 +212,18 @@
    */
   Stats.parse = function parse(stationId, json) {
     // Extending default values
-    var stats = new Stats();
+    var stats = new Stats(),
+        parentService;
     _clone(json, stats);
     stats.channel = stationId;
     stats.channel_name = _humanize(stats.channel);
+
+    // If there's a ServiceList instance available
+    // try and find and link it to the stats object
+    if (Stats.serviceList) {
+      parentService = Stats.serviceList.findByIdSync(stationId);
+      stats.service = parentService;
+    }
 
     if (stats.audience &&
       stats.audience.platforms &&
