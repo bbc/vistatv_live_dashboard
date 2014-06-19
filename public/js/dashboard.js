@@ -96,8 +96,11 @@
 
     options.initialServicesToDisplay = initialServicesToDisplay;
 
-    this._initServices(initialServicesToDisplay);
-    this._initStatsProcessor(options);
+    self._initServices(initialServicesToDisplay)
+        .then(function () {
+          self._initStatsProcessor(options);
+        });
+    
   };
 
   Dashboard.INITIAL_SERVICES_TO_DISPLAY = dashboardConfig.initialServices || [];
@@ -116,16 +119,100 @@
       endpoint: options.stats_realtime_endpoint
     });
 
+    // Get the Stats objects for the view and augment 
+    // then with programme data from an external API
+    // This is asyncronous and when all the data has
+    // been augmented, run initWithData
     self.statsProcessor
         .initialData()
-        .then(self.statsProcessor.latest())
-        .then(function (latestData) {
-          self.initWithData(latestData);
+        .then(function () {
+          return self._latestStatsObjectsWithProgrammeInfo();
+        })
+        .then(function (latest) {
+          self.initWithData(latest);
         });
 
-    $(self.statsProcessor).on("update", function (evt, data) {
-      self.update(data);
+    $(self.statsProcessor).on("update", function () {
+      self._latestStatsObjectsWithProgrammeInfo().
+          then(
+            function (latest) {
+              self.update(latest);
+            }
+          );
     });
+  };
+
+  /**
+   * Fetches all the latest Stats objects and augments them
+   * with programme info. 
+   * 
+   * Returns a Promise that resolves with the array of 
+   * augmented latest Stats objects
+   *
+   * @private
+   */
+  Dashboard.prototype._latestStatsObjectsWithProgrammeInfo = function latestStatsObjectsWithProgrammeInfo() {
+    var self     = this,
+        deferred = $.Deferred(),
+        latest = self.statsProcessor.latest(),
+        promises;
+
+    // For each Stats object in the latest array,
+    // run the method that augments with remote programme data
+    promises = latest.map(self._augmentStatsWithProgrammeData);
+    
+    // When all the Stats objects in the `latest` 
+    // array augmented, we resolve the promise 
+    // and pass the latest array through
+    $.when.apply(null, promises)
+     .then(
+      function () {
+        deferred.resolve(latest);
+      });
+
+    // return the promise so the caller
+    // can listen using `then` for the
+    // stats objects to be augmented
+    return deferred.promise();
+  };
+
+  /**
+   * Augments a Stats with programme data from an external API.
+   * Note: The Stats object is modified directly so any references
+   *       to it will gain the programme data
+   *
+   * @private
+   * @param {<Stats>} stats Stats object to be augmented
+   * @returns {<jQuery.Deferred>} A promise that resolves when the
+                                  Stat object has been augmented.
+   */
+  Dashboard.prototype._augmentStatsWithProgrammeData = function _augmentStatsWithProgrammeData(stats){
+    var deferred = $.Deferred();
+    var self = this;
+    var now = new Date();    
+    var time_now = now.toISOString();
+    var channel = stats.channel_name;
+
+    var url =  "http://dev.notu.be/2014/05/on_tv/?start_time="+time_now+"&service_key="+channel;
+
+    var jqxhr =  $.getJSON(url)
+                  .done(function(data) {
+                    if(data["response"]["docs"][0]){
+                      var prog = {
+                        id: data["response"]["docs"][0]["pid"],
+                        title: data["response"]["docs"][0]["title"],
+                        subtitle: data["response"]["docs"][0]["title"],
+                        service_id: data["response"]["docs"][0]["service_key"],
+                        start: data["response"]["docs"][0]["start_time"],
+                        end: data["response"]["docs"][0]["end_time"],
+                        image: data["response"]["docs"][0]["image_url"]
+                      };
+                      stats.programme = prog;
+                      deferred.resolve(stats);
+                    }
+                  });    
+
+    return deferred.promise();
   };
 
   /**
@@ -136,7 +223,8 @@
    * @param {Array.<string>} initialServicesToDisplay Service ids to be displayed 
    */
   Dashboard.prototype._initServices = function _initServices(initialServicesToDisplay){
-    var self = this;
+    var self = this,
+        deferred = $.Deferred();
 
     // List of all available services
     self.serviceList = new ServiceList(initialServicesToDisplay);
@@ -145,15 +233,27 @@
     self.serviceListView = new ServiceListView('#services-list ul');
 
     // Connect the list with the view
-    self.serviceList.services().then(function (services) {
-      self.serviceListView.render(services);
-      self.updateBookmark();
-    });
+    self.serviceList
+        .services()
+        .then(function (services) {
+          self.serviceListView.render(services);
+          self.updateBookmark();
+
+          // Link to the Stats class so that Stats objects 
+          // can be linked to their parent services
+          Stats.serviceList = self.serviceList;
+
+          // All done, notify anything waiting for 
+          // our promise to resolve
+          deferred.resolve();
+        });
 
     $(self.serviceList).on('serviceStateChanged', function (evt) {
       self.updateService(evt.service, evt.service.isSelected);
       self.updateBookmark();
     });
+
+    return deferred.promise();
   };
 
   /**
@@ -240,6 +340,12 @@
 
     this.statsProcessor.historicalByService(item.channel).then(function(response){
       var service_data = self.statsProcessor.parseUpdates(response.stations)[ item.channel ];
+      
+      // Swap the last data item form the server with
+      // that one passed in as it will have programme
+      // data
+      service_data[service_data.length - 1] = item;
+
       self.barChart.update(service_data);
       self.barChart.updateGraph();
 

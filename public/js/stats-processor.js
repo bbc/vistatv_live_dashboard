@@ -11,7 +11,8 @@
    */
   StatsProcessorOptions = {
     filterServices: [],
-    endpoint: null
+    endpoint: null,
+    serviceList: null
   };
 
   /**
@@ -28,6 +29,13 @@
      * @type {Array}
      */
     this.filterBy = opts.filterServices;
+
+    /**
+     * An object for querying services
+     * @type {ServiceList}
+     */
+    this.serviceList = opts.serviceList;
+
 
     /**
      * All data updates

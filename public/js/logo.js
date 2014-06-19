@@ -55,7 +55,7 @@
    */
   Logo.prototype.stationNameEl = function () {
     var span = document.createElement('span');
-    span.textContent = this.item.channel_name;
+    span.textContent = this.item.getChannelName();
     return span;
   };
 
@@ -80,10 +80,12 @@
    */
   Logo.prototype.channelLogoUrl = function (format) {
     format = format || this.defaultFormat;
+    
+    var channelId = this.item.getLogoId();
 
     return dashboardConfig.logoTemplate
       .replace(/{{format}}/g, format)
-      .replace(/{{service_id}}/g, this.item.channel);
+      .replace(/{{service_id}}/g, channelId);
   };
 
   /**

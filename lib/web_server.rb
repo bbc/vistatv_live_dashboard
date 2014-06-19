@@ -1,5 +1,7 @@
 Bundler.require :web
 
+require 'json'
+
 require_relative 'stats_observer'
 
 module LiveDashboard
@@ -13,14 +15,19 @@ module LiveDashboard
     end
 
     helpers do
-      def stats_server_http_request(method, path)
+      def stats_server_http_request(method, path, &blk)
         url = "#{stats_server_base_url}#{path}"
         http = EventMachine::HttpRequest.new(url).send(method)
 
         http.callback {
           content_type http.response_header['content_type']
 
-          body { http.response }
+          if block_given?
+            body { yield http.response } 
+          else
+            body { http.response }
+          end
+          
         }
 
         http.errback {
@@ -36,6 +43,15 @@ module LiveDashboard
         port = settings.config.stats_http_server.port
 
         "http://#{host}:#{port}"
+      end
+
+      def title_overrides
+        overrides_file_path = File.dirname(__FILE__) + '/../config/overrides.json'
+        if File.exist?(overrides_file_path)
+          @overrides ||= JSON.parse File.open(overrides_file_path) { |f| f.read }
+        else
+          {}
+        end
       end
     end
 
@@ -62,7 +78,17 @@ module LiveDashboard
     # Returns list of all available TV and radio stations.
     #
     aget '/discovery.json' do
-      stats_server_http_request(:get, "/discovery.json")
+      stats_server_http_request(:get, "/discovery.json") do |response|
+        json = JSON.parse(response)
+        json.each do |item|
+          id = item['id']
+          if title_overrides.has_key?(id)
+            item['title']  = title_overrides[id]['title'] if title_overrides[id]['title']
+            item['logoId'] = title_overrides[id]['logoId'] if title_overrides[id]['logoId']
+          end
+        end
+        json.to_json
+      end
     end
 
     # Returns 60 minutes of data, filtered by service, in 1-minute groups.
