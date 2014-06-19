@@ -1,5 +1,6 @@
 {
   "adhoc_custom_stream": {
-    "title": "My Special Event"
+    "title": "My Special Event",
+    "logoId": "bbc_glastonbury_1"
   }
 }
