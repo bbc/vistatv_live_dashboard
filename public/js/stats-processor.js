@@ -151,7 +151,6 @@
    */
   StatsProcessor.prototype.latest = function () {
     var latest = [],
-        deferred = $.Deferred(),
         dataForService,
         dataTotal,
         latestItem;
@@ -166,9 +165,7 @@
       }
     }
 
-    deferred.resolve(latest);
-
-    return deferred.promise();
+    return latest;
   };
 
   /**
