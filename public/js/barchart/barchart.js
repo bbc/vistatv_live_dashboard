@@ -557,7 +557,7 @@
       $("#stats-show-time").text(getShowTime(programme.start) + " - " + getShowTime(programme.end));
     }
     else {
-      $("#stats-show-title").html(item.channel_name);
+      $("#stats-show-title").html(item.getChannelName());
       $("#flux-show-title, #stats-show-time").html('');
       $("#stats-show-image").attr('src', this._programmeImagePlaceholder);
     }
