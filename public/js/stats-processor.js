@@ -137,10 +137,7 @@
       this.processUpdatesByService(data.stations);
     }
 
-    this.latest()
-        .then(function (data) {
-          $(self).trigger("update", [ data ]);
-        })
+    $(self).trigger("update", [ this.latest() ]);
   };
 
   /**
