@@ -5,7 +5,7 @@
   border-bottom: 1px solid #ADADAD;
   background: #fff;
   position: absolute;
-  height: 170px;
+  height: 130px;
   vertical-align: middle;
   width: 100%;
 
@@ -15,9 +15,19 @@
   animation: vertical-slide 1s ease 0s;
 }
 
-#title,
+#title {
+  height: 130px;
+  padding-top: 40px;
+  box-sizing: border-box;
+}
+
 .actions {
-  line-height: 170px;
+  line-height: 130px;
+}
+
+#title h1,
+#title p {
+  margin: 0;
 }
 
 #title{

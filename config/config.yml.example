@@ -7,6 +7,7 @@ stats_http_server:
   port: 8083
 
 dashboard:
+  strapline: "Realtime stats"
   logo_template: "/img/logos/{{format}}/{{service_id}}.{{format}}"
   logo_missing: "/img/missing_logo.{{format}}"
   programme_uri: "http://bbc.co.uk/i/{{id}}"

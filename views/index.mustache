@@ -108,7 +108,12 @@
 
     <div id="header">
     	<div class="container">
-    	  <h1 id="title" class="app-title">Live Dashboard</h1>
+        <div id="title" class="app-title">
+    	    <h1>Live Dashboard</h1>
+          {{#dashboard_config}}
+          <p>{{ strapline }}</p>
+          {{/dashboard_config}}
+        </div>
         <div class="actions">
           <a href="#about-text" id="about" class="button" data-toggle="modal">About</a>
           <a href="#services-list" id="services" class="button" data-toggle="modal">Services</a>
