@@ -7,7 +7,7 @@ set :deploy_to, ENV['DEPLOY_PATH']
 set :repository, ENV['DEPLOY_REPOSITORY']
 set :branch, ENV['DEPLOY_BRANCH']
 
-set :shared_paths, ['.foreman', '.env', 'config/config.yml', 'public/img/logos']
+set :shared_paths, ['.foreman', '.env', 'config/config.yml', 'config/overrides.json', 'public/img/logos']
 
 desc "Deploys the current version to the server."
 task :deploy do
