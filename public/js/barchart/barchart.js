@@ -540,12 +540,17 @@
    */
   BarChart.prototype.updateHeadline = function updateHeadline(item) {
     var programme = item.getProgramme(),
+        title = item.getChannelName(),
         programmeImageUrl;
- 
+
+    if (programme.title) {
+      title += ": " + programme.title;
+    }
+
     if (programme.id) {
       $("#stats-show-title")
         .attr('href', this._options.programme_uri.replace(/{{id}}/g, programme.id))
-        .text(item.getChannelName()+": "+programme.title);
+        .text(title);
  
       programmeImageUrl = this._options.programme_picture_uri.replace(/{{id}}/g, programme.id);
  
@@ -557,7 +562,7 @@
       $("#stats-show-time").text(getShowTime(programme.start) + " - " + getShowTime(programme.end));
     }
     else {
-      $("#stats-show-title").html(item.getChannelName());
+      $("#stats-show-title").html(title);
       $("#flux-show-title, #stats-show-time").html('');
       $("#stats-show-image").attr('src', this._programmeImagePlaceholder);
     }
