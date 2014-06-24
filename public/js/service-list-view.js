@@ -46,12 +46,14 @@
     self.$el.empty();
     self.$el.append(function () {
       return services.map(function (item) {
-        var $el = $('<li>' +
-          '<input id="' + item.id + '" type="checkbox" ' + (item.isSelected ? 'checked' : '') + ' value="' + item.id + '">' +
-          '<label title="' + item.id + '" for="' + item.id + '">' + item.displayName() + '</label>' +
-        '</li>');
-        $el.data('service', item);
-        return $el;
+        if(item.id.indexOf("podcast")==-1){ //filter out podcasts for tidiness
+          var $el = $('<li>' +
+            '<input id="' + item.id + '" type="checkbox" ' + (item.isSelected ? 'checked' : '') + ' value="' + item.id + '">' +
+            '<label title="' + item.id + '" for="' + item.id + '">' + item.displayName() + '</label>' +
+          '</li>');
+          $el.data('service', item);
+          return $el;
+        }
       });
     });
   };
