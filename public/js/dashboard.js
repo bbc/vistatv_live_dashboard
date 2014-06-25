@@ -347,11 +347,11 @@
       //sometimess there's no historical data, this helps
       if(!service_data){
         console.log("No service data yet for "+item.channel+" continuing anyway");
-        service_data = self.statsProcessor.parseUpdates(item)[ item.channel ];
+      }else{
+        service_data[service_data.length - 1] = item;
+        self.barChart.update(service_data);
+        self.barChart.updateGraph();
       }
-      service_data[service_data.length - 1] = item;
-      self.barChart.update(service_data);
-      self.barChart.updateGraph();
 
       setTimeout(function(){
         self.modalHandler.loaded( $('#stats') );
