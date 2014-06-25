@@ -344,8 +344,12 @@
       // Swap the last data item form the server with
       // that one passed in as it will have programme
       // data
+      //sometimess there's no historical data, this helps
+      if(!service_data){
+        console.log("No service data yet for "+item.channel+" continuing anyway");
+        service_data = self.statsProcessor.parseUpdates(item)[ item.channel ];
+      }
       service_data[service_data.length - 1] = item;
-
       self.barChart.update(service_data);
       self.barChart.updateGraph();
 
