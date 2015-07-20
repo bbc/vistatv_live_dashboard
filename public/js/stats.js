@@ -200,47 +200,15 @@
    * @private
    */
   function _humanize(service_id) {
-      var tmp_human_ids = {
-       "b05zgj2s": "Radio 2",
-       "b05y8spv": "Radio 1",
-       "p02vbldl": "BBC Introducing Stage",
-       "p02vbl7k": "Pyramid Stage",
-       "p02vbldx": "Other Stage",
-       "p02vbtb9": "John Peel Stage",
-       "p02vbtbl": "West Holts Stage",
-       "p02vbtbq": "Park Stage",
-       "p02vbtby": "Red Button",
-       "p02vf38c": "BBC Introducing Stage",
-       "p02vf2nl": "Pyramid Stage",
-       "p02vf3wn": "John Peel Stage",
-       "p02vf5jr": "Park Stage",
-       "p02vf3nn": "Other Stage",
-       "p02vf4lv": "West Holts Stage",
-       "p02vf62l": "Red Button",
-       "p02vf6px": "BBC Introducing Stage",
-       "p02vf78l": "Pyramid Stage",
-       "p02vf7x0": "John Peel Stage",
-       "p02vf8lb": "Park Stage",
-       "p02vf7np": "Other Stage",
-       "p02vf86m": "West Holts Stage",
-       "p02vf8v6": "Red Button",
-       "b0615kmm": "BBC Two"
-      };
-      var channel_name = tmp_human_ids[service_id];
 
-      if(channel_name){
-        return channel_name;
-      }else{
-
-       return service_id
-         .replace(/_/g, ' ')
-         .replace(/(^| )\w/g, function (m) {
-           return m.toUpperCase();
-         })
-         .replace(/bbc/i, function (m) {
-           return m.toUpperCase();
-         });
-      }
+      return service_id
+        .replace(/_/g, ' ')
+        .replace(/(^| )\w/g, function (m) {
+          return m.toUpperCase();
+        })
+        .replace(/bbc/i, function (m) {
+          return m.toUpperCase();
+        });
   }
 
   /**
