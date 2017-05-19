@@ -59,7 +59,7 @@ module LiveDashboard
       @faye_client_endpoint = StatsSocket.endpoint(settings.config)
 
       @dashboard_config = {
-        :strapline             => settings.config.dashboard["strapline"],
+        :strapline             => settings.config.dashboard.strapline,
         :logo_template         => settings.config.dashboard.logo_template,
         :logo_missing          => settings.config.dashboard.logo_missing,
         :programme_uri         => settings.config.dashboard.programme_uri,
