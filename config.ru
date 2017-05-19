@@ -25,6 +25,7 @@ LiveDashboard::WebServer.set(:config, config)
 LiveDashboard::WebServer.set(:logger, logger)
 LiveDashboard::WebServer.set(:observer, observer)
 
+Faye::WebSocket.load_adapter('thin')
 use Faye::RackAdapter, :mount => '/faye', :timeout => 25
 
 run LiveDashboard::WebServer.new
