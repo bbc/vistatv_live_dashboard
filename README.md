@@ -5,14 +5,14 @@ radio stream viewing patterns.
 
 ## Prerequisites
 
-* [Ruby](http://www.ruby-lang.org/) v1.9.3
+* [Ruby](http://www.ruby-lang.org/) v2.4
 * [Bundler](http://gembundler.com/)
 
 ## Getting started
 
 ### Obtain the code
 
-    $ git clone https://github.com/bbcrd/vistatv_live_dashboard.git
+    $ git clone git@github.com:bbc/vistatv_live_dashboard.git
     $ cd vistatv_live_dashboard
 
 ### Install gem dependencies
@@ -64,4 +64,4 @@ See [AUTHORS](AUTHORS)
 
 ## Copyright
 
-Copyright 2013 British Broadcasting Corporation
+Copyright 2013-2017 British Broadcasting Corporation

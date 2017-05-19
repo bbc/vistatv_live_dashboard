@@ -103,7 +103,7 @@ module LiveDashboard
       headers['Access-Control-Allow-Headers']= 'Content-Type'
       headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE'
 
-      file_path = File.join(settings.root, 'public',  request.path)
+      file_path = File.join(settings.root, 'public', request.path)
 
       File.exist?(file_path) ? send_file(file_path) : raise(Sinatra::NotFound)
     end

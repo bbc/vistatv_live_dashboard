@@ -1,4 +1,4 @@
-require 'stats_protocol'
+require 'vistatv_stats_protocol'
 
 module LiveDashboard
   class StatsClient < EventMachine::Connection
@@ -62,12 +62,12 @@ module LiveDashboard
     def receive_line(line)
       @logger.debug("StatsObserver.receive_line: #{line}")
 
-      message = StatsProtocol::Message.new(line)
+      message = VistaTV::StatsProtocol::Message.new(line)
       @observer.receive_message(message)
     end
 
     def send_data(data)
-      command = StatsProtocol::Command.new(data).serialize
+      command = VistaTV::StatsProtocol::Command.new(data).serialize
       @logger.info "StatsClient.send_data: #{command.chomp}"
       super(command)
     end
