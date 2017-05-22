@@ -28,17 +28,17 @@ task :foreman do
 end
 
 task :stop do
-  queue "sudo stop client"
+  queue "sudo stop vistatv-live-dashboard"
 end
 
 task :start do
-  queue "sudo start client"
+  queue "sudo start vistatv-live-dashboard"
 end
 
 task :restart do
-  queue "sudo restart client"
+  queue "sudo restart vistatv-live-dashboard"
 end
 
 task :start_or_restart do
-  queue "sudo restart client || sudo start client"
+  queue "sudo restart vistatv-live-dashboard || sudo start vistatv-live-dashboard"
 end

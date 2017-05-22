@@ -1,6 +1,5 @@
 {
-  "name": "vista_radio_stats",
-  "version": "0.0.0",
+  "name": "vistatv_live_dashboard",
   "dependencies": {
     "d3": "~3.0.8",
     "rickshaw": "~1.2.1",

@@ -7,12 +7,7 @@ module LiveDashboard
     end
 
     def self.endpoint(config)
-      case ENV['RACK_ENV']
-      when 'production'
-        config.faye_endpoint.url
-      else
-        'http://localhost:5000/faye'
-      end
+      config.faye_endpoint.url
     end
   end
 end

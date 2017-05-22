@@ -9,7 +9,7 @@ require './lib/stats_observer'
 require './lib/stats_socket'
 require './lib/web_server'
 
-$PROGRAM_NAME = 'stats_web'
+$PROGRAM_NAME = 'vistatv_live_dashboard'
 STDOUT.sync = true
 
 config = LiveDashboard::Config.new
