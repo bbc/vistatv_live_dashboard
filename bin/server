@@ -1,20 +1,23 @@
+#!/usr/bin/env ruby
+
 require 'bundler/setup'
 
 require 'logger'
 require 'em-logger'
+require 'thin'
 
-require './lib/config'
-require './lib/stats_client'
-require './lib/stats_observer'
-require './lib/stats_socket'
-require './lib/web_server'
+require_relative '../lib/config'
+require_relative '../lib/stats_client'
+require_relative '../lib/stats_observer'
+require_relative '../lib/stats_socket'
+require_relative '../lib/web_server'
 
 $PROGRAM_NAME = 'vistatv_live_dashboard'
 STDOUT.sync = true
 
 config = LiveDashboard::Config.new
 
-dest_logger = Logger.new(STDERR)
+dest_logger = Logger.new(STDOUT)
 dest_logger.level = Logger::INFO
 
 logger = EventMachine::Logger.new(dest_logger)
@@ -28,9 +31,7 @@ LiveDashboard::WebServer.set(:observer, observer)
 Faye::WebSocket.load_adapter('thin')
 use Faye::RackAdapter, :mount => '/faye', :timeout => 25
 
-run LiveDashboard::WebServer.new
-
-EventMachine.next_tick do
+EventMachine.next_tick {
   websocket = LiveDashboard::StatsSocket.new(config)
 
   observer.register 'overview' do |data|
@@ -43,4 +44,21 @@ EventMachine.next_tick do
   EventMachine.connect(
     host, port, LiveDashboard::StatsClient, host, port, observer, logger
   )
-end
+}
+
+EventMachine.run {
+  Signal.trap("INT")  { EventMachine.stop }
+  Signal.trap("TERM") { EventMachine.stop }
+
+  hostname = config.web_server.host
+  port     = config.web_server.port
+
+  Thin::Server.start(
+    LiveDashboard::WebServer,
+    hostname,
+    port,
+    signals: false
+  )
+
+  logger.info("Running web server on #{hostname}:#{port}")
+}

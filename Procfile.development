@@ -1,3 +1,0 @@
-web: bundle exec thin start -p $PORT
-stats_tunnel: ssh vista -L 8081:localhost:8081 -N
-stats_http_tunnel: ssh vista -L 8083:localhost:8083 -N
