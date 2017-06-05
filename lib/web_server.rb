@@ -23,11 +23,11 @@ module LiveDashboard
           content_type http.response_header['content_type']
 
           if block_given?
-            body { yield http.response } 
+            body { yield http.response }
           else
             body { http.response }
           end
-          
+
         }
 
         http.errback {
@@ -68,6 +68,11 @@ module LiveDashboard
       }
 
       mustache :index
+    end
+
+    get '/status' do
+      content_type 'text/plain', :charset => 'utf-8'
+      "VistaTV Live Dashboard Web Server up and running\n"
     end
 
     get '/latest.json' do
