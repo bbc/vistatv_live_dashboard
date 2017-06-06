@@ -9,7 +9,7 @@
    * @param {HTMLElement} el Parent element containing the view.
    * @constructor
    */
-  var ServiceListView = function ServiceListView(el){
+  var ServiceListView = function ServiceListView(el) {
 
     /**
      * Reference to the HTML element holding the view
@@ -21,7 +21,7 @@
   };
 
   /**
-   * Update a single service item based on the model's state
+   * Update a single service item based on the model's state.
    *
    * @api
    * @param {Service} service The service to update
@@ -35,7 +35,8 @@
   };
 
   /**
-   * Render the list of Services into the UI so as people can choose what service to display.
+   * Render the list of Services into the UI so as people can choose what
+   * service to display.
    *
    * @api
    * @param {Array.<Service>} services The services we want to render in the UI

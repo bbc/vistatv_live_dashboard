@@ -16,7 +16,7 @@
   };
 
   /**
-   * Processes the inbound data from AJAX/Websocket endpoints
+   * Processes the inbound data from AJAX/Websocket endpoints.
    *
    * @param {StatsProcessorOptions} opts
    * @constructor
@@ -59,7 +59,7 @@
   };
 
   /**
-   * Checks if the service ID is valid among those emitted by the remote server
+   * Checks if the service ID is valid among those emitted by the remote server.
    *
    * @param {string} id Service identifier
    * @returns {boolean}
@@ -73,7 +73,7 @@
   };
 
   /**
-   * Add a service to the list of services to display
+   * Adds a service to the list of services to display.
    *
    * @api
    * @param {string} id Service identifier
@@ -84,7 +84,7 @@
   };
 
   /**
-   * Remove a service to the list of services to display
+   * Removes a service to the list of services to display.
    *
    * @api
    * @param {string} id Service identifier
@@ -99,7 +99,7 @@
   };
 
   /**
-   * Initial query before relying only on websocket data exchange
+   * Initial query before relying only on websocket data exchange.
    *
    * @returns {jQuery.Deferred}
    */
@@ -123,8 +123,9 @@
   };
 
   /**
-   * Method triggered when receiving data from the network (like the Websocket provider).
-   * It processes the data to convert them as Stats objects and spread the work through the `update` event.
+   * Method triggered when receiving data from the network (like the Websocket
+   * provider). It processes the data to convert them into Stats objects and
+   * spreads the work through the `update` event.
    *
    * @api
    * @param {Object=} data
@@ -141,7 +142,8 @@
   };
 
   /**
-   * Returns an array of the latest data updates (as Stats objects), 1 per service
+   * Returns an array of the latest data updates (as Stats objects),
+   * one per service.
    *
    * @todo rename a way it reflects "latest by service"
    * @returns {Object.<Stats>}
@@ -166,7 +168,7 @@
   };
 
   /**
-   * A hash of all updates, keyed by service id
+   * A hash of all updates, keyed by service id.
    *
    * @returns {jQuery.Deferred} A promise of data {@link http://api.jquery.com/category/deferred-object/}
    */
@@ -175,7 +177,7 @@
   };
 
   /**
-   * The latest update received for a particular service
+   * The latest update received for a particular service.
    *
    * @returns {array.<Stats>} the latest Stats
    */
@@ -184,7 +186,7 @@
   };
 
   /**
-   * Parse an update response and returns an augmented object of Stats updates
+   * Parse an update response and returns an augmented object of Stats updates.
    *
    * @param {Object} jsonData Each key contains an array of objects parseable with `Stats.parse`
    * @returns {Object} One key per service, containing an array of Stats objects
@@ -219,7 +221,7 @@
   };
 
   /**
-   * Subscribes to a `/minute` channel on a given Websocket endpoint
+   * Subscribes to a `/minute` channel on a given Websocket endpoint.
    *
    * @uses Faye {@link http://faye.jcoglan.com/browser.html}
    * @throws Error

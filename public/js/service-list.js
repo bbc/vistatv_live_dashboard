@@ -4,7 +4,7 @@
   /* globals jQuery, Service */
 
   /**
-   * Trace an error in the console before blowing into space
+   * Trace an error in the console and throw an exception.
    *
    * @param {Error} err
    */
@@ -48,7 +48,7 @@
   };
 
   /**
-   * Handle the data reception, and parse then store the results to drive the UI.
+   * Handle the received data and parse then store the results to drive the UI.
    *
    * @param {Array.<Object>} data
    */
@@ -60,7 +60,7 @@
     // Add event handlers for Service state changes
     // Propagte as 'serviceStateChanged' event on this class
     this.data.forEach(function (service) {
-      $(service).on('serviceStateChanged', function () { 
+      $(service).on('serviceStateChanged', function() {
         self.triggerStateChange(service); });
     });
 
@@ -70,9 +70,9 @@
 
   /**
    * Trigger a state change, firing the 'serviceStateChanged' event
-   * for the given Service
+   * for the given Service.
    *
-   * @param {Serivice} service
+   * @param {Service} service
    */
   ServiceList.prototype.triggerStateChange = function(service) {
     var evt = $.Event('serviceStateChanged', {
@@ -82,22 +82,22 @@
   };
 
   /**
-   * Parse a response object and creates a new `Service` object with it.
+   * Parses a response object and creates a new `Service` object with it.
    *
    * @param {Object} item
    * @returns {Service}
    */
   ServiceList.prototype.parseService = function parseService(item) {
     var service = new Service(item.id, item.title, item.logoId);
-    
-    var isSelected = this.selectedServiceIds.indexOf(service.id) > -1;
-    service.isSelected = isSelected;
+
+    service.isSelected = this.selectedServiceIds.indexOf(service.id) > -1;
 
     return service;
   };
 
   /**
-   * Compare two object identifiers to help determining an alphabetical sorting.
+   * Compares two object identifiers to help determining an alphabetical
+   * sorting.
    *
    * @param {Service} objA
    * @param {Service} objB
@@ -125,7 +125,7 @@
    * Returns a jQuery Deferred.Promise object providing the list of services
    * Use the `then` function with a callback to get the data e.g.
    *     list.services()
-   *         .then(function (services) { 
+   *         .then(function (services) {
    *            console.log('Number of services: ' + services.length)
    *         });
    *
@@ -144,7 +144,7 @@
 
         self.dataReceived(data);
         deferred.resolve(self.data);
-      }, 
+      },
       errorHandler
     );
 
@@ -152,7 +152,7 @@
   };
 
   /**
-   * Returns a promise providing the list of selected services
+   * Returns a promise providing the list of selected services.
    *
    * @returns {Deferred.Promise}
    */
@@ -162,8 +162,10 @@
 
     self.services().then(
       function(services) {
-        deferred.resolve(services.filter(function (service) { return service.isSelected; }));
-      }, 
+        deferred.resolve(services.filter(function(service) {
+          return service.isSelected;
+        }));
+      },
       function(error) {
         deferred.reject(error);
       }
@@ -174,9 +176,8 @@
 
   /**
    * Returns a promise providing a particular service instance
-   * identified by it's id
+   * identified by its id.
    *
-   *  
    * @returns {Deferred.Promise}
    */
   ServiceList.prototype.findByIdSync = function findById(id) {
