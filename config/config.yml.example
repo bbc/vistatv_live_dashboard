@@ -27,4 +27,4 @@ dashboard:
     - cbeebies
 
 faye_endpoint:
-  url: "http://localhost:5000/faye"
+  url: "/faye"

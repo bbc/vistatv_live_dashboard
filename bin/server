@@ -28,9 +28,6 @@ LiveDashboard::WebServer.set(:config, config)
 LiveDashboard::WebServer.set(:logger, logger)
 LiveDashboard::WebServer.set(:observer, observer)
 
-Faye::WebSocket.load_adapter('thin')
-use Faye::RackAdapter, :mount => '/faye', :timeout => 25
-
 EventMachine.next_tick {
   websocket = LiveDashboard::StatsSocket.new(config)
 
@@ -53,12 +50,12 @@ EventMachine.run {
   hostname = config.web_server.host
   port     = config.web_server.port
 
-  Thin::Server.start(
-    LiveDashboard::WebServer,
-    hostname,
-    port,
-    signals: false
-  )
+  Thin::Server.start(hostname, port, signals: false) do
+    Faye::WebSocket.load_adapter('thin')
+    use Faye::RackAdapter, mount: '/faye', timeout: 25
+
+    run LiveDashboard::WebServer.new
+  end
 
   logger.info("Running web server on #{hostname}:#{port}")
 }
