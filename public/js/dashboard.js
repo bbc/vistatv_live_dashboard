@@ -87,7 +87,7 @@
     $body.on('peakButtonClick', function (evt) { self.showPeakData(evt); });
 
     var initialServicesToDisplay = Dashboard.INITIAL_SERVICES_TO_DISPLAY;
-    
+
     // If URL contains a service list then use that for initial services
     self.urlManager = new UrlManager({ key: 'services', delim: ',' });
     if (self.urlManager.hasItems()) {
@@ -100,7 +100,7 @@
         .then(function () {
           self._initStatsProcessor(options);
         });
-    
+
   };
 
   Dashboard.INITIAL_SERVICES_TO_DISPLAY = dashboardConfig.initialServices || [];
@@ -119,10 +119,10 @@
       endpoint: options.stats_realtime_endpoint
     });
 
-    // Get the Stats objects for the view and augment 
-    // then with programme data from an external API
-    // This is asyncronous and when all the data has
-    // been augmented, run initWithData
+    // Get the Stats objects for the view and augment
+    // them with programme data from an external API.
+    // This is asynchronous and when all the data has
+    // been augmented, run initWithData.
     self.statsProcessor
         .initialData()
         .then(function () {
@@ -144,9 +144,9 @@
 
   /**
    * Fetches all the latest Stats objects and augments them
-   * with programme info. 
-   * 
-   * Returns a Promise that resolves with the array of 
+   * with programme info.
+   *
+   * Returns a Promise that resolves with the array of
    * augmented latest Stats objects
    *
    * @private
@@ -157,12 +157,17 @@
         latest = self.statsProcessor.latest(),
         promises;
 
+    return deferred.resolve(latest);
+
+    /* This code is commented out because the dev.notu.be server is not
+       available.
+
     // For each Stats object in the latest array,
     // run the method that augments with remote programme data
     promises = latest.map(self._augmentStatsWithProgrammeData);
-    
-    // When all the Stats objects in the `latest` 
-    // array augmented, we resolve the promise 
+
+    // When all the Stats objects in the `latest`
+    // array augmented, we resolve the promise
     // and pass the latest array through
     $.when.apply(null, promises)
      .then(
@@ -174,6 +179,7 @@
     // can listen using `then` for the
     // stats objects to be augmented
     return deferred.promise();
+    */
   };
 
   /**
@@ -189,7 +195,7 @@
   Dashboard.prototype._augmentStatsWithProgrammeData = function _augmentStatsWithProgrammeData(stats){
     var deferred = $.Deferred();
     var self = this;
-    var now = new Date();    
+    var now = new Date();
     var time_now = now.toISOString();
     var channel = stats.channel_name;
 
@@ -210,7 +216,7 @@
                       stats.programme = prog;
                       deferred.resolve(stats);
                     }
-                  });    
+                  });
 
     return deferred.promise();
   };
@@ -220,7 +226,7 @@
    * It let the ability to the user to choose the displayed channels on both bubble and detail graph
    *
    * @private
-   * @param {Array.<string>} initialServicesToDisplay Service ids to be displayed 
+   * @param {Array.<string>} initialServicesToDisplay Service ids to be displayed
    */
   Dashboard.prototype._initServices = function _initServices(initialServicesToDisplay){
     var self = this,
@@ -239,11 +245,11 @@
           self.serviceListView.render(services);
           self.updateBookmark();
 
-          // Link to the Stats class so that Stats objects 
+          // Link to the Stats class so that Stats objects
           // can be linked to their parent services
           Stats.serviceList = self.serviceList;
 
-          // All done, notify anything waiting for 
+          // All done, notify anything waiting for
           // our promise to resolve
           deferred.resolve();
         });
@@ -340,7 +346,7 @@
 
     this.statsProcessor.historicalByService(item.channel).then(function(response){
       var service_data = self.statsProcessor.parseUpdates(response.stations)[ item.channel ];
-      
+
       // Swap the last data item form the server with
       // that one passed in as it will have programme
       // data
