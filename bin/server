@@ -6,11 +6,11 @@ require 'logger'
 require 'em-logger'
 require 'thin'
 require 'uri'
+require 'faye'
 
 require_relative '../lib/config'
 require_relative '../lib/stats_client'
 require_relative '../lib/stats_observer'
-require_relative '../lib/stats_socket'
 require_relative '../lib/web_server'
 
 $PROGRAM_NAME = 'vistatv_live_dashboard'
@@ -30,7 +30,7 @@ LiveDashboard::WebServer.set(:logger, logger)
 LiveDashboard::WebServer.set(:observer, observer)
 
 EventMachine.next_tick {
-  websocket = LiveDashboard::StatsSocket.new(config)
+  websocket = Faye::Client.new(config.faye_endpoint.url)
 
   observer.register('overview') do |data|
     websocket.publish('/minute', data)
