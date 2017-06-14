@@ -5,6 +5,7 @@ require 'bundler/setup'
 require 'logger'
 require 'em-logger'
 require 'thin'
+require 'uri'
 
 require_relative '../lib/config'
 require_relative '../lib/stats_client'
@@ -31,7 +32,7 @@ LiveDashboard::WebServer.set(:observer, observer)
 EventMachine.next_tick {
   websocket = LiveDashboard::StatsSocket.new(config)
 
-  observer.register 'overview' do |data|
+  observer.register('overview') do |data|
     websocket.publish('/minute', data)
   end
 
@@ -52,7 +53,11 @@ EventMachine.run {
 
   Thin::Server.start(hostname, port, signals: false) do
     Faye::WebSocket.load_adapter('thin')
-    use Faye::RackAdapter, mount: '/faye', timeout: 25
+
+    endpoint_url = URI(config.faye_endpoint.url)
+
+    logger.info("Using Faye endpoint: #{endpoint_url}")
+    use Faye::RackAdapter, mount: endpoint_url.path, timeout: 25
 
     run LiveDashboard::WebServer.new
   end

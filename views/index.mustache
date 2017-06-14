@@ -107,9 +107,9 @@
     </div><!-- #stats -->
 
     <div id="header">
-    	<div class="container">
+      <div class="container">
         <div id="title" class="app-title">
-    	    <h1>Live Dashboard</h1>
+          <h1>Live Dashboard</h1>
           {{#dashboard_config}}
           <p>{{ strapline }}</p>
           {{/dashboard_config}}
@@ -118,10 +118,10 @@
           <a href="#about-text" id="about" class="button" data-toggle="modal">About</a>
           <a href="#services-list" id="services" class="button" data-toggle="modal">Services</a>
         </div>
-    	</div>
+      </div>
     </div><!-- #header -->
 
-    <script src="/faye/client.js"></script>
+    <script src="{{faye_client_endpoint}}/client.js"></script>
     <script src="components/jquery/jquery.min.js"></script>
     <script src="components/d3/d3.min.js"></script>
     <script src="components/rickshaw/rickshaw.min.js"></script>

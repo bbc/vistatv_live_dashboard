@@ -51,7 +51,7 @@ module LiveDashboard
       when 'ACK'
         @logger.error("ACK: #{message.inspect}")
       when 'DATA'
-        notify message.command, message.data
+        notify(message.command, message.data)
       else
         @logger.error("Unexected message status: #{message.inspect}")
       end
@@ -63,13 +63,13 @@ module LiveDashboard
       if @client.nil?
         @pending_commands << command
       else
-        @client.send_data command
+        @client.send_data(command)
       end
     end
 
     def send_pending_commands!
       while command = @pending_commands.pop do
-        send_command command
+        send_command(command)
       end
     end
 

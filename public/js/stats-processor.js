@@ -160,7 +160,7 @@
         dataTotal      = dataForService.length;
         latestItem     = dataForService[dataTotal-1];
 
-        latest.push( latestItem );
+        latest.push(latestItem);
       }
     }
 
@@ -235,6 +235,8 @@
     }
 
     this.client = new Faye.Client(endpoint);
+    this.client.disable('websocket');
+
     this.subscription = this.client.subscribe('/minute', function (message) {
       self.update(message);
     });

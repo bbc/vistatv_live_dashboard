@@ -56,7 +56,7 @@ module LiveDashboard
     end
 
     get '/' do
-      @faye_client_endpoint = StatsSocket.endpoint(settings.config)
+      @faye_client_endpoint = settings.config.faye_endpoint.url
 
       @dashboard_config = {
         :strapline             => settings.config.dashboard.strapline,
