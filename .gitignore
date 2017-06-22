@@ -5,7 +5,9 @@ config/config.yml
 config/overrides.json
 .DS_Store
 node_modules
+.bundle
 .yardoc
 docs
 coverage
 public/img/logos
+vendor
