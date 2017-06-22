@@ -152,26 +152,19 @@
    * @private
    */
   Dashboard.prototype._latestStatsObjectsWithProgrammeInfo = function latestStatsObjectsWithProgrammeInfo() {
-    var self     = this,
-        deferred = $.Deferred(),
-        latest = self.statsProcessor.latest(),
+    var deferred = $.Deferred(),
+        latest = this.statsProcessor.latest(),
         promises;
-
-    return deferred.resolve(latest);
-
-    /* This code is commented out because the dev.notu.be server is not
-       available.
 
     // For each Stats object in the latest array,
     // run the method that augments with remote programme data
-    promises = latest.map(self._augmentStatsWithProgrammeData);
+    promises = latest.map(this._augmentStatsWithProgrammeData);
 
     // When all the Stats objects in the `latest`
     // array augmented, we resolve the promise
     // and pass the latest array through
     $.when.apply(null, promises)
-     .then(
-      function () {
+      .then(function() {
         deferred.resolve(latest);
       });
 
@@ -179,7 +172,6 @@
     // can listen using `then` for the
     // stats objects to be augmented
     return deferred.promise();
-    */
   };
 
   /**
@@ -194,29 +186,32 @@
    */
   Dashboard.prototype._augmentStatsWithProgrammeData = function _augmentStatsWithProgrammeData(stats){
     var deferred = $.Deferred();
-    var self = this;
     var now = new Date();
     var time_now = now.toISOString();
-    var channel = stats.channel_name;
+    var channel = stats.channel;
 
-    var url =  "http://dev.notu.be/2014/05/on_tv/?start_time="+time_now+"&service_key="+channel;
+    var url = "/onnow?start_time=" + time_now + "&service_key[]=" + channel;
 
-    var jqxhr =  $.getJSON(url)
-                  .done(function(data) {
-                    if(data["response"]["docs"][0]){
-                      var prog = {
-                        id: data["response"]["docs"][0]["pid"],
-                        title: data["response"]["docs"][0]["title"],
-                        subtitle: data["response"]["docs"][0]["title"],
-                        service_id: data["response"]["docs"][0]["service_key"],
-                        start: data["response"]["docs"][0]["start_time"],
-                        end: data["response"]["docs"][0]["end_time"],
-                        image: data["response"]["docs"][0]["image_url"]
-                      };
-                      stats.programme = prog;
-                      deferred.resolve(stats);
-                    }
-                  });
+    var jqxhr = $.getJSON(url).done(function(data) {
+      var doc = data["response"]["docs"][0];
+
+      if (doc) {
+        stats.programme = {
+          id:         doc["pid"],
+          title:      doc["title"],
+          subtitle:   doc["title"],
+          service_id: doc["service_key"],
+          start:      doc["start_time"],
+          end:        doc["end_time"],
+          image:      doc["image_url"]
+        };
+      }
+
+      deferred.resolve(stats);
+    })
+    .fail(function() {
+      deferred.resolve(stats);
+    });
 
     return deferred.promise();
   };
