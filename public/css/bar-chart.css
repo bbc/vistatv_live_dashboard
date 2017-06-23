@@ -10,7 +10,7 @@
   border: 3px solid #fff;
   box-shadow: 0 0 5px rgba(0, 0, 100, .5);
   height: 96px;
-  width: 172px;
+/*  width: 172px;*/
 }
 
 #stats-chart, #stats-timeline{
