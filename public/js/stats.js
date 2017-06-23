@@ -124,7 +124,9 @@
   };
 
   Stats.prototype.getChannelName = function getChannelName() {
-    if (this.service && this.service.displayName) {
+    if(this.programme && this.programme.service_title){
+      return this.programme.service_title;
+    }else if (this.service && this.service.displayName) {
       return this.service.displayName();
     } else {
       return this.channel_name;

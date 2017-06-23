@@ -201,6 +201,7 @@
           title:      doc["title"],
           subtitle:   doc["title"],
           service_id: doc["service_key"],
+          service_title: doc["service_title"],
           start:      doc["start_time"],
           end:        doc["end_time"],
           image:      doc["image_url"]
