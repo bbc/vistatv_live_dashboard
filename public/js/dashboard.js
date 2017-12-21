@@ -197,14 +197,14 @@
 
       if (doc) {
         stats.programme = {
-          id:         doc["pid"],
-          title:      doc["title"],
-          subtitle:   doc["title"],
-          service_id: doc["service_key"],
+          id:            doc["pid"],
+          title:         doc["title"],
+          subtitle:      doc["title"],
+          service_id:    doc["service_key"],
           service_title: doc["service_title"],
-          start:      doc["start_time"],
-          end:        doc["end_time"],
-          image:      doc["image_url"]
+          start:         doc["start_time"],
+          end:           doc["end_time"],
+          image:         doc["image_url"]
         };
       }
 
