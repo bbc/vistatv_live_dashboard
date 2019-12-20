@@ -30,5 +30,5 @@ end
 
 group :documentation do
   gem 'redcarpet', '~> 3.4.0'
-  gem 'yard', '~> 0.9.11'
+  gem 'yard', '~> 0.9.20'
 end

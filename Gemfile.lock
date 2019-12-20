@@ -117,7 +117,7 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    yard (0.9.12)
+    yard (0.9.20)
 
 PLATFORMS
   ruby
@@ -141,7 +141,7 @@ DEPENDENCIES
   thin (~> 1.7.0)
   vistatv_stats_protocol!
   webmock (~> 3.0.1)
-  yard (~> 0.9.11)
+  yard (~> 0.9.20)
 
 BUNDLED WITH
    1.15.1
