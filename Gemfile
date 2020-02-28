@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rake', '~> 12.0.0'
+gem 'rake', '~> 12.3.3'
 gem 'activesupport', '~> 5.1.1'
 gem 'eventmachine', '~> 1.2.3'
 gem 'em-logger', '~> 0.1.0'
