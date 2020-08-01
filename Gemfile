@@ -16,7 +16,7 @@ end
 group :web do
   gem 'sinatra', '~> 1.4.8'
   gem 'async_sinatra', '~> 1.2.1'
-  gem 'faye', '~> 1.2.5'
+  gem 'faye', '~> 1.4.0'
   gem 'thin', '~> 1.7.0'
   gem 'sinatra-mustache', '~> 0.3.2'
 end
