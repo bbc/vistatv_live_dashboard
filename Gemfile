@@ -29,6 +29,6 @@ group :test do
 end
 
 group :documentation do
-  gem 'redcarpet', '~> 3.4.0'
+  gem 'redcarpet', '~> 3.5.1'
   gem 'yard', '~> 0.9.20'
 end
