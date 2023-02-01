@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake', '~> 12.3.3'
-gem 'activesupport', '~> 5.2.4'
+gem 'activesupport', '~> 6.0.6'
 gem 'eventmachine', '~> 1.2.3'
 gem 'em-logger', '~> 0.1.0'
 gem 'settingslogic', '~> 2.0.9'
